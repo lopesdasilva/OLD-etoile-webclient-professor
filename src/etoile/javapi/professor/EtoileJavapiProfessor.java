@@ -4,6 +4,8 @@
  */
 package etoile.javapi.professor;
 
+import etoile.javaapi.question.Question;
+import etoile.javaapi.question.URL;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,14 +31,17 @@ public class EtoileJavapiProfessor {
             ServiceManager manager;
         try {
             manager = new ServiceManager();
+
             manager.setAuthentication("ruip", "40bd001563085fc35165329ea1ff5c5ecbdbbeef");
             manager.userService().updateDisciplines(professor_id);
             
             System.out.println("Disciplines");
             for(Discipline d: manager.getCurrentProfessor().getDisciplines()){
                 System.out.println("X- " + d.getName());
-            }
-        } catch (SQLException ex) {
+            }      
+                
+                 
+         } catch (SQLException ex) {
             Logger.getLogger(EtoileJavapiProfessor.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
             Logger.getLogger(EtoileJavapiProfessor.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,8 +50,10 @@ public class EtoileJavapiProfessor {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(EtoileJavapiProfessor.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-            
-        
-    }
+                    }
+                
+                
+                
+                
 }
+
