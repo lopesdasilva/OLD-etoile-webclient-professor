@@ -32,11 +32,11 @@ public class UserService implements Serializable{
     }
 
 
-    public void addProfessor(Professor student) throws SQLException {
-        String sqlStatement = SQLInstruct.addStudent(student.getUsername(), student.getPassword(), student.getFirstname(), student.getLastname(), student.getEmail());
+    public void addProfessor(Professor professor) throws SQLException {
+        String sqlStatement = SQLInstruct.addProfessor(professor.getUsername(), professor.getPassword(), professor.getFirstname(), professor.getLastname(), professor.getEmail());
         db.updateDB(sqlStatement);
-        System.out.println("SELECT id FROM student WHERE student.username = "+student.getUsername()+"");
-        ResultSet rSet = db.queryDB("SELECT id FROM student WHERE student.username = '"+student.getUsername()+"'");
+        System.out.println("SELECT id FROM professor WHERE professor.username = "+professor.getUsername()+"");
+        ResultSet rSet = db.queryDB("SELECT id FROM student WHERE student.username = '"+professor.getUsername()+"'");
         while(rSet.next()){
         String statmentAddCourse = SQLInstruct.registerStudentCourse(rSet.getInt(1),1);
         db.updateDB(statmentAddCourse);
@@ -220,12 +220,12 @@ public class UserService implements Serializable{
      //TODO: FIX ME!
      public Discipline getDiscipline(String name){
        
-        for(Course c : current_student.getCourses()){
-            for(Discipline d: c.getDisciplines()){
-                if(d.getName().equals(name))
-                    return d;
-            }
-        }
+//        for(Course c : current_student.getCourses()){
+//            for(Discipline d: c.getDisciplines()){
+//                if(d.getName().equals(name))
+//                    return d;
+//            }
+//        }
     return null;
     }
 
@@ -233,13 +233,13 @@ public class UserService implements Serializable{
      //TODO: FIX ME!
     public Module getModule(String value) {
         //TODO Cant exist modules with the same name
-        for(Course c: current_student.getCourses()){
-            for(Discipline d: c.getDisciplines()){
-               for(Module m: d.getModules())
-                   if(m.getName().equals(value))
-                       return m;
-            }
-        }
+//        for(Course c: current_student.getCourses()){
+//            for(Discipline d: c.getDisciplines()){
+//               for(Module m: d.getModules())
+//                   if(m.getName().equals(value))
+//                       return m;
+//            }
+//        }
         return null;
     }
 

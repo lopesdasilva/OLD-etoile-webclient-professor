@@ -16,7 +16,7 @@ import services.UserService;
  * @author Rui
  */
 public class ServiceManager implements Serializable{
-    Professor current_student ;
+    Professor current_professor ;
     private String username;
     private String sha1_of_password;
     private int user_id;
@@ -36,8 +36,7 @@ public class ServiceManager implements Serializable{
         ResultSet rSet = db.queryDB(sqlStatement);
         if (rSet.next()) {
             user_id = rSet.getInt(1);
-            
-            current_student=new Professor(rSet.getInt(1),rSet.getString(2),rSet.getString(3),rSet.getString(4),rSet.getString(5),rSet.getString(6));    
+            current_professor=new Professor(rSet.getInt(1),rSet.getString(2),rSet.getString(3),rSet.getString(4),rSet.getString(5),rSet.getString(6));    
             return true;
             
         }
@@ -45,12 +44,12 @@ public class ServiceManager implements Serializable{
 
     }
 
-    public Professor getCurrent_student() {
-        return current_student;
+    public Professor getCurrentProfessor() {
+        return current_professor;
     }
 
     public UserService userService() {
-        UserService us = new UserService(db,current_student);
+        UserService us = new UserService(db,current_professor);
         return us;
     }
 

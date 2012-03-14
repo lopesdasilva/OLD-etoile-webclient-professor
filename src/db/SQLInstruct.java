@@ -23,8 +23,8 @@ public class SQLInstruct implements Serializable {
     
     // fazer no cmd ssh -L 3306:localhost:3306 -l user v3.etoilecascadesideas.eu
     public static String login(String username, String parseSHA1Password) {
-        return "SELECT id,username,password,firstname,surname,email FROM student WHERE student.username='" + username
-                + "' AND student.password='" + parseSHA1Password + "'";
+        return "SELECT id,username,password,firstname,surname,email FROM professor WHERE professor.username='" + username
+                + "' AND professor.password='" + parseSHA1Password + "'";
 
     }
 
@@ -128,9 +128,9 @@ public class SQLInstruct implements Serializable {
                 +"openquestion.id="+question_id+" AND openquestion.id=openquestion_url.openquestion_id AND openquestion_url.url_id=url.id";
      }
     //INSERTS
-    public static String addStudent(String username, String password, String firstname, String surname, String email) {
+    public static String addProfessor(String username, String password, String firstname, String surname, String email) {
 
-        return "INSERT INTO student (username, password, firstname, surname, email) VALUES ('" + username + "', '" + password + "','" + firstname + "','" + surname + "','" + email + "');";
+        return "INSERT INTO professor (username, password, firstname, surname, email) VALUES ('" + username + "', '" + password + "','" + firstname + "','" + surname + "','" + email + "');";
     }
     
     public static String registerStudentCourse(int student_id, int course_id){
@@ -182,6 +182,7 @@ public class SQLInstruct implements Serializable {
     public static String linkURLOneChoiceQuestion(int question_id, int url_id) {
         return "INSERT INTO onechoicequestion_url( onechoicequestion_id, url_id ) VALUES('"+question_id+"','"+url_id+"');";
     }
+
 
     
 
