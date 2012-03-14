@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+              xmlns="http://java.sun.com/xml/ns/javaee" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{userManager.checkValidUser}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/profile.xhtml</to-view-id>           
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{userManager.checkValidUser}</from-action>
+            <from-outcome>fail</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>addTest</from-outcome>
+            <to-view-id>/addTest.xhtml</to-view-id>
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>editContents</from-outcome>
+            <to-view-id>/editcontents.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>

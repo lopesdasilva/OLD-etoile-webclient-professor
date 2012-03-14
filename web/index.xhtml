@@ -1,12 +1,58 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <!--body-->
     <h:body>
-        Hello from Facelets
+        <ui:composition template="./resources/templates/indexTemplate.xhtml">
+
+            <ui:define name="content">
+
+                <h:form>
+                    <p:column>
+
+                        <h:panelGrid columns="2" id="login" style="vertical-align:top;" >
+                            <img src="./resources/images/etoile-logo-small-teacher.png" width="450"/>
+                            <h:panelGrid columns="2" >
+                                <h:outputLabel value="Username: "/>
+                                <p:inputText id="username" size="25" label="username"  value="#{userManager.username}"/>
+                                <h:outputLabel value="Pasword: "/>
+                                <p:password value="#{userManager.password}" label="password"  size="25" minLength="6" id="password" feedback="false" />
+                                <br></br>
+                                <h:panelGrid columns="3" >
+                                    <p:commandButton  value="Login" ajax="false" action="#{userManager.checkValidUser}"/>
+
+                                    <p:commandButton onclick="dlgHelp.show();" icon="ui-icon ui-icon-help"/>
+
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:column>
+                    <p:growl id="growl"  showDetail="true" autoUpdate="true"/>  
+
+                </h:form>
+                <p:dialog id="helpDialog" header="How to Login" widgetVar="dlgHelp" resizable="false" position="center">  
+                    <h:form>
+                        <p:outputPanel layout="block" style="width:350px;height:100px;border:1px solid grey;">
+
+
+                            <h:outputText value="   Insert your username and password and press login." />
+                            <p></p>
+                            <h:outputText value="   To register a new account, press register and fill the form." />
+                            <p></p>
+                            <h:outputText value="   If you have difficulties press here LINK." />
+
+                        </p:outputPanel>
+                        <center> 
+                            <p:commandButton value="Ok" onclick="dlgHelp.hide();"/>
+                        </center>
+
+                    </h:form>  
+                </p:dialog>   
+            </ui:define>
+
+        </ui:composition>
     </h:body>
 </html>
-
