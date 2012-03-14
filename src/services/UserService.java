@@ -24,11 +24,11 @@ import java.util.LinkedList;
 public class UserService implements Serializable{
 
     DBConnect db;
-    Professor current_student;
+    Professor current_professor;
 
-    public UserService(DBConnect db, Professor current_student) {
+    public UserService(DBConnect db, Professor current_professor) {
         this.db = db;
-        this.current_student = current_student;
+        this.current_professor = current_professor;
     }
 
 
@@ -36,7 +36,7 @@ public class UserService implements Serializable{
         String sqlStatement = SQLInstruct.addProfessor(professor.getUsername(), professor.getPassword(), professor.getFirstname(), professor.getLastname(), professor.getEmail());
         db.updateDB(sqlStatement);
         System.out.println("SELECT id FROM professor WHERE professor.username = "+professor.getUsername()+"");
-        ResultSet rSet = db.queryDB("SELECT id FROM student WHERE student.username = '"+professor.getUsername()+"'");
+        ResultSet rSet = db.queryDB("SELECT id FROM professor WHERE professor.username = '"+professor.getUsername()+"'");
         while(rSet.next()){
         String statmentAddCourse = SQLInstruct.registerStudentCourse(rSet.getInt(1),1);
         db.updateDB(statmentAddCourse);
@@ -47,14 +47,14 @@ public class UserService implements Serializable{
     
     //TODO: FIX ME!
     public void updateDisciplines(int professor_id) throws SQLException {
-//        String sqlStatement = SQLInstruct.getDisciplines(course.getId());
-//        ResultSet rSet = db.queryDB(sqlStatement);
-//
-//        while (rSet.next()) {
-//            Discipline d = new Discipline(rSet.getInt(1), rSet.getString(2));
-//            course.addDiscipline(d);
-//            updateModules(d);
-//        }
+        String sqlStatement = SQLInstruct.getDisciplines(professor_id);
+        ResultSet rSet = db.queryDB(sqlStatement);
+
+        while (rSet.next()) {
+            Discipline d = new Discipline(rSet.getInt(1), rSet.getString(2));
+            current_professor.addDiscipline(d);
+            //updateModules(d);
+        }
     }
 
     public void updateModules(Discipline discipline) throws SQLException {
@@ -103,13 +103,13 @@ public class UserService implements Serializable{
             q.setNumber(rSet.getInt(3));
             test.addQuestion(q);
             questions.add(q);
-            String sqlStatement_correct = SQLInstruct.getOpenQuestionAnswer(rSet.getInt(1), current_student.getId());
+            String sqlStatement_correct = SQLInstruct.getOpenQuestionAnswer(rSet.getInt(1), current_professor.getId());
             ResultSet rSet_answer = db.queryDB(sqlStatement_correct);
             if (rSet_answer.next()) {
                 q.setUserAnswer(rSet_answer.getString(2));
                 q.setAnswerId(rSet_answer.getInt(1));
             }else {
-                String sqlStatementAddAnswer = SQLInstruct.insertOpenQuestionAnswer(current_student.getId(), q.getId(), "No Answer.");
+                String sqlStatementAddAnswer = SQLInstruct.insertOpenQuestionAnswer(current_professor.getId(), q.getId(), "No Answer.");
                 db.updateDB(sqlStatementAddAnswer);
                 q.setUserAnswer("No Answer.");
             }
@@ -138,13 +138,13 @@ public class UserService implements Serializable{
             }
 
 
-            String sqlStatement_useranswer = SQLInstruct.getOneChoiceAnswer(rSet.getInt(1), current_student.getId());
+            String sqlStatement_useranswer = SQLInstruct.getOneChoiceAnswer(rSet.getInt(1), current_professor.getId());
             ResultSet rSet_answer = db.queryDB(sqlStatement_useranswer);
             if (rSet_answer.next()) {
                 op.setAnswerId(rSet_answer.getInt(1));
                 op.setUserAnswer(rSet_answer.getString(2));
             }else{
-                String sqlStatementAddAnswer = SQLInstruct.insertOneChoiceQuestionAnswer(current_student.getId(),op.getId());
+                String sqlStatementAddAnswer = SQLInstruct.insertOneChoiceQuestionAnswer(current_professor.getId(),op.getId());
                 db.updateDB(sqlStatementAddAnswer);
                 op.setUserAnswer("No Answer.");
             }
@@ -174,7 +174,7 @@ public class UserService implements Serializable{
                 }
             }
             mp.setCorrectAnswers(correct);
-            String sqlStatement_useranswer= SQLInstruct.getMultipleChoiceAnswer(rSet.getInt(1), current_student.getId());
+            String sqlStatement_useranswer= SQLInstruct.getMultipleChoiceAnswer(rSet.getInt(1), current_professor.getId());
             ResultSet rSet_answer = db.queryDB(sqlStatement_useranswer);
             LinkedList<String> answers = new LinkedList<String>();
             while(rSet_answer.next()){
@@ -261,7 +261,7 @@ public class UserService implements Serializable{
     }
     
     public void updateMultipleChoiceAnswer(int question_id, LinkedList<String> userAnswers) throws SQLException{
-            String sqlStatement_useranswer= SQLInstruct.getMultipleChoiceAnswer(question_id, current_student.getId());
+            String sqlStatement_useranswer= SQLInstruct.getMultipleChoiceAnswer(question_id, current_professor.getId());
             ResultSet rSet_answer = db.queryDB(sqlStatement_useranswer);
             //remover respostas anteriores
             while(rSet_answer.next()){
@@ -270,7 +270,7 @@ public class UserService implements Serializable{
             }
             //adicionar respostas actuais
             for(String answer: userAnswers){
-                String sqlStatement = SQLInstruct.insertMultipleChoiceAnswer(question_id,current_student.getId(),answer);
+                String sqlStatement = SQLInstruct.insertMultipleChoiceAnswer(question_id,current_professor.getId(),answer);
                 db.updateDB(sqlStatement);
             }
             

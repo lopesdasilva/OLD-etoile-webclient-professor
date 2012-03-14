@@ -54,6 +54,13 @@ public class Professor implements Serializable {
         return username;
     }
      
+    public void addDiscipline(Discipline discipline){
+        disciplines.add(discipline);
+    }
+    
+    public LinkedList<Discipline> getDisciplines(){
+        return disciplines;
+    }
 
     
 }

@@ -34,10 +34,10 @@ public class SQLInstruct implements Serializable {
                 + "AND student_course.course_id=course.id";
     }
 
-    public static String getDisciplines(int course_id) {
-        return "SELECT discipline.id, discipline.name FROM course,course_discipline,discipline WHERE "
-                + "course.id='" + course_id + "' AND course_discipline.course_id = course.id AND "
-                + "course_discipline.discipline_id = discipline.id";
+    public static String getDisciplines(int professor_id) {
+        return "SELECT discipline.id, discipline.name FROM professor, professor_discipline, discipline WHERE "
+                + "professor.id='" + professor_id + "' AND professor_discipline.professor_id = professor.id AND "
+                + "professor_discipline.discipline_id = discipline.id";
     }
 
     public static String getModules(int discipline_id) {
