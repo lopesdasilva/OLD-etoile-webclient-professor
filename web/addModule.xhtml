@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
 
     <body>
 
@@ -28,7 +29,29 @@
             </ui:define>
 
             <ui:define name="content">
+                <h:form>
 
+                    <p:fieldset legend="Add Module to #{userManager.selectedDiscipline.name}">
+                        <center>
+
+                            <p:panelGrid columns="2" >
+                                <h:outputText value="Module Name:"/>
+                                <p:inputText value="#{userManager.moduleName}"/>
+                                <h:outputText value="Module Description:"/>
+                                <p:inputTextarea title="" disabled="true" />
+
+                            </p:panelGrid>
+                            <p:panelGrid columns="2" >
+                                <p:commandButton value="Add Module" action="#{userManager.addModule}" />
+                                <p:commandButton value="Cancel" action="profile" ajax="false"/>
+                            </p:panelGrid>
+                        </center>
+
+                    </p:fieldset>
+                    <br/>
+                    <p:fieldset legend="Modules">
+                    </p:fieldset>
+                </h:form>
             </ui:define>
 
 

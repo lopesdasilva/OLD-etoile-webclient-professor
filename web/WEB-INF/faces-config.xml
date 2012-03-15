@@ -23,6 +23,10 @@
             <to-view-id>/addTest.xhtml</to-view-id>
         </navigation-case>  
         <navigation-case>
+            <from-outcome>addModule</from-outcome>
+            <to-view-id>/addModule.xhtml</to-view-id>
+        </navigation-case> 
+        <navigation-case>
             <from-outcome>editContents</from-outcome>
             <to-view-id>/editcontents.xhtml</to-view-id>
         </navigation-case>

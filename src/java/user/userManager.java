@@ -35,7 +35,17 @@ public class userManager implements Serializable {
     private MenuBean menu;
     private Professor current_user;
     private Discipline selectedDiscipline;
+    private String moduleName;
 
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
+    
+    
     public Discipline getSelectedDiscipline() {
         return selectedDiscipline;
     }
@@ -137,6 +147,20 @@ public class userManager implements Serializable {
         return "addTest";
     }
     
+      public void redirectAddModule(ActionEvent event) {
+        Object obj = event.getSource();
+        MenuItem aux_info = (MenuItem) obj;
+        Submenu aux_discipline = (Submenu) aux_info.getParent();
+        selectedDiscipline = manager.userService().getDiscipline(aux_discipline.getLabel());
+        System.out.println("DEBUG: SELECTED DISCIPLINE: " + selectedDiscipline.name + " ID: " + selectedDiscipline.getId());
+
+    }
+    
+    public String redirectAddModule() {
+       System.out.println("DEBUG: Redirecting to addModule");
+        return "addModule";
+    }
+    
     public void redirectEditContents(ActionEvent event) {
         Object obj = event.getSource();
         MenuItem aux_info = (MenuItem) obj;
@@ -149,5 +173,14 @@ public class userManager implements Serializable {
     public String redirectEditContents() {
        System.out.println("DEBUG: Redirecting to Edit Contents");
         return "editContents";
+    }
+    
+    public void addModule(){
+        try {
+            manager.userService().addModule(moduleName, selectedDiscipline.getId());
+              System.out.println("DEBUG: ADDING MODULE: "+moduleName+" TO DISCIPLINE: "+selectedDiscipline.getName());
+        } catch (SQLException ex) {
+            Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
