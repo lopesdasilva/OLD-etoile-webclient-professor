@@ -4,7 +4,6 @@
  */
 package menu;
 
-
 import etoile.javapi.professor.Discipline;
 import etoile.javapi.professor.Module;
 import java.io.Serializable;
@@ -35,10 +34,20 @@ public class MenuBean implements Serializable {
 
             submenu.setLabel(d.getName());
 
+            
             item = new MenuItem();
-            item.setValue("Add Test");
+            item.setValue("Manage Module");
             //item.setId(d.getId()+"");
-            item.setAjax(false);            
+            item.setAjax(false);
+            item.setActionListener(createActionListener("#{userManager.redirectAddModule}"));
+            item.setActionExpression(createAction_old("#{userManager.redirectAddModule}", String.class));
+            submenu.getChildren().add(item);
+            
+            
+            item = new MenuItem();
+            item.setValue("Manage Test");
+            //item.setId(d.getId()+"");
+            item.setAjax(false);
             item.setActionListener(createActionListener("#{userManager.redirectAddTest}"));
             item.setActionExpression(createAction_old("#{userManager.redirectAddTest}", String.class));
             submenu.getChildren().add(item);
@@ -62,12 +71,13 @@ public class MenuBean implements Serializable {
                 item.setAjax(false);
                 item.setActionListener(createActionListener("#{userManager.redirectModule}"));
                 item.setActionExpression(createAction_old("#{userManager.redirectModule}", String.class));
-                
+
                 submenu.getChildren().add(item);
             }
             model.addSubmenu(submenu);
         }
     }
+
 
     public MenuModel getModel() {
         return model;
