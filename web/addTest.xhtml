@@ -57,25 +57,16 @@
                                     </p:column>
 
                                 </p:panelGrid>
-                                <p:panelGrid columns="2">
-                                    <p:column>
-                                        <h:outputText value="Insert Test Description:"/><br/>
-                                        <p:inputText value="Description"  size="50"/>
-                                    </p:column>
-                                    <p:column>
-                                        <p:panelGrid columns="2">
-                                            <h:outputText value="Open Question:"/>
-                                            <h:outputText value="0"/>
-                                            <h:outputText value="One Choice:"/>
-                                            <h:outputText value="0"/>
-                                            <h:outputText value="Multiple Choice:"/>
-                                            <h:outputText value="0"/>
-                                        </p:panelGrid>
-                                    </p:column>
-                                </p:panelGrid>
+
+                                <h:outputText value="Insert Test Description:"/><br/>
+                                <p:inputText value="Description"  size="50"/>
+
                             </p:tab>
                             <p:tab title="Questions">
-
+                                <p:commandButton value="Add Question" actionListener="AddQuestion.show();"/>
+                                <p:dialog id="AddQuestion" widgetVar="AddQuestion">
+                                    <h3>Nome</h3>
+                                </p:dialog>
                             </p:tab>
 
                         </p:wizard>
