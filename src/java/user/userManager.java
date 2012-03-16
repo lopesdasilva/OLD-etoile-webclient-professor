@@ -5,6 +5,7 @@
 package user;
 
 import etoile.javapi.professor.Discipline;
+import etoile.javapi.professor.Module;
 import etoile.javapi.professor.Professor;
 import etoile.javapi.professor.ServiceManager;
 import java.io.Serializable;
@@ -139,6 +140,9 @@ public class userManager implements Serializable {
         Submenu aux_discipline = (Submenu) aux_info.getParent();
         selectedDiscipline = manager.userService().getDiscipline(aux_discipline.getLabel());
         System.out.println("DEBUG: SELECTED DISCIPLINE: " + selectedDiscipline.name + " ID: " + selectedDiscipline.getId());
+        for (Module m: selectedDiscipline.modules){
+            System.out.println("Module"+m.name);
+        }
 
     }
     

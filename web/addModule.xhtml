@@ -50,6 +50,9 @@
                     </p:fieldset>
                     <br/>
                     <p:fieldset legend="Modules">
+                        <p:selectManyCheckbox   layout="pageDirection">  
+                            <f:selectItems value="#{userManager.selectedDiscipline.modules}"/>  
+                        </p:selectManyCheckbox>  
                     </p:fieldset>
                 </h:form>
             </ui:define>

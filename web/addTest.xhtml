@@ -29,59 +29,57 @@
             </ui:define>
 
             <ui:define name="content">
-<h:form>
+                <h:form>
 
                     <p:fieldset legend="Add Test">
-                        <center>
-                        <h:outputText value="Test Name:"/>
-                        <p:inputText value="Test Name" />
-                        </center>
-                        <p:panelGrid columns="3" >
-                            <p:column id="ModuleSelection">
-                                <h:outputText value="Module:"/><br/>
-                                <p:selectOneMenu >  
-                                    <f:selectItem itemLabel="Select Module" itemValue="" />  
-                                    <f:selectItem itemLabel="Module 1" itemValue="1" />  
-                                    <f:selectItem itemLabel="Module 2" itemValue="2" />  
-                                    <f:selectItem itemLabel="Module 3" itemValue="3" />  
-                                </p:selectOneMenu>  
-                            </p:column>
-                            <p:column id="StartDate">
-                                <h:outputText value="Start Date"/><br/>    
-                                <p:calendar id="popupButtonCalStart" showOn="button" />  
+                        <p:wizard>
+                            <p:tab title="Test Description" >
+                                <center>
+                                    <h:outputText value="Test Name:"/>
+                                    <p:inputText value="Test Name" />
+                                </center>
+                                <p:panelGrid columns="3" >
+                                    <p:column id="ModuleSelection">
+                                        <h:outputText value="Module:"/><br/>
+                                        <p:selectOneMenu >  
+                                            <f:selectItem itemLabel="Select Module" noSelectionOption="true" />  
+<!--                                            <f:selectItem value="#{userManager.selectedDiscipline.modules}"/>-->
+                                        </p:selectOneMenu>  
+                                    </p:column>
+                                    <p:column id="StartDate">
+                                        <h:outputText value="Start Date"/><br/>    
+                                        <p:calendar id="popupButtonCalStart" showOn="button" />  
 
-                            </p:column>
-                            <p:column id="FinishDate">
-                                <h:outputText value="Finish Date"/><br/>  
-                                <p:calendar  id="popupButtonCalFinish" showOn="button" />  
-                            </p:column>
+                                    </p:column>
+                                    <p:column id="FinishDate">
+                                        <h:outputText value="Finish Date"/><br/>  
+                                        <p:calendar  id="popupButtonCalFinish" showOn="button" />  
+                                    </p:column>
 
-                        </p:panelGrid>
-                        <p:panelGrid columns="2">
-                            <p:column>
-                                <h:outputText value="Insert Test Description:"/><br/>
-                                <p:inputText value="Description"  size="50"/>
-                            </p:column>
-                            <p:column>
-                                <p:panelGrid columns="2">
-                                    <h:outputText value="Open Question:"/>
-                                    <h:outputText value="0"/>
-                                    <h:outputText value="One Choice:"/>
-                                    <h:outputText value="0"/>
-                                    <h:outputText value="Multiple Choice:"/>
-                                    <h:outputText value="0"/>
                                 </p:panelGrid>
-                            </p:column>
-                        </p:panelGrid>
-                        <center>
+                                <p:panelGrid columns="2">
+                                    <p:column>
+                                        <h:outputText value="Insert Test Description:"/><br/>
+                                        <p:inputText value="Description"  size="50"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:panelGrid columns="2">
+                                            <h:outputText value="Open Question:"/>
+                                            <h:outputText value="0"/>
+                                            <h:outputText value="One Choice:"/>
+                                            <h:outputText value="0"/>
+                                            <h:outputText value="Multiple Choice:"/>
+                                            <h:outputText value="0"/>
+                                        </p:panelGrid>
+                                    </p:column>
+                                </p:panelGrid>
+                            </p:tab>
+                            <p:tab title="Questions">
 
-                            <p:panelGrid columns="4" > 
-                                <p:commandButton value="View Test"/>
-                                <p:commandButton value="Add Questions"/>
-                                <p:commandButton value="Save"/>
-                                <p:commandButton value="Cancel" actionListener="profile" ajax="false"/>
-                            </p:panelGrid>
-                        </center>
+                            </p:tab>
+
+                        </p:wizard>
+
 
                     </p:fieldset>
                 </h:form>
