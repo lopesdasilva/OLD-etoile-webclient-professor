@@ -41,9 +41,9 @@
                                 <p:panelGrid columns="3" >
                                     <p:column id="ModuleSelection">
                                         <h:outputText value="Module:"/><br/>
-                                        <p:selectOneMenu >  
-                                            <f:selectItem itemLabel="Select Module" noSelectionOption="true" />  
-<!--                                            <f:selectItem value="#{userManager.selectedDiscipline.modules}"/>-->
+                                        <p:selectOneMenu required="true" >  
+                                            <f:selectItem itemLabel="Select Module" noSelectionOption="true"  />  
+                                            <f:selectItems value="#{userManager.selectedDiscipline.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module}"/>  
                                         </p:selectOneMenu>  
                                     </p:column>
                                     <p:column id="StartDate">
