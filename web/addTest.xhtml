@@ -63,17 +63,25 @@
 
                             </p:tab>
                             <p:tab title="Questions">
-                                <p:commandButton value="Add Question" actionListener="AddQuestion.show();"/>
-                                <p:dialog id="AddQuestion" widgetVar="AddQuestion">
-                                    <h3>Nome</h3>
-                                </p:dialog>
+                                <h:form>
+<!--                                    <p:selectManyCheckbox   layout="pageDirection">  
+                                        <f:selectItems value="#{userManager.testManager.questionsToAdd}" var="question" itemLabel="#{question.text}" itemValue="#{question}"/>  
+                                    </p:selectManyCheckbox>  -->
+<!--                                    <p:commandButton id="addQuestionButton" value="Add Question" onclick="addQuestionDlg.show();" type="button" />  -->
+
+                                </h:form>
                             </p:tab>
 
                         </p:wizard>
-
+                        <p:dialog id="addQuestionDialog" header="Insert questions details" widgetVar="questionsToAdd">  
+                            <h:outputText value="Resistance to PrimeFaces is futile!" />
+<!--                            <p:inputText value="#{usermanager.testManager.newQuestionText}"/>-->
+                            
+                        </p:dialog> 
 
                     </p:fieldset>
                 </h:form>
+
             </ui:define>
 
 

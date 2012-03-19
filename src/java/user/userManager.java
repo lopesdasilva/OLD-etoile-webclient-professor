@@ -23,6 +23,7 @@ import menu.MenuBean;
 import org.primefaces.component.menuitem.MenuItem;
 import org.primefaces.component.submenu.Submenu;
 import sha1.sha1;
+import test.testManager;
 
 @ManagedBean(name = "userManager")
 @SessionScoped
@@ -37,7 +38,17 @@ public class userManager implements Serializable {
     private Professor current_user;
     private Discipline selectedDiscipline;
     private String moduleName;
+    private testManager testManager;
 
+    public testManager getTestManager() {
+        return testManager;
+    }
+
+    public void setTestManager(testManager testManager) {
+        this.testManager = testManager;
+    }
+
+    
     public String getModuleName() {
         return moduleName;
     }
@@ -143,6 +154,8 @@ public class userManager implements Serializable {
         for (Module m: selectedDiscipline.modules){
             System.out.println("Module"+m.name);
         }
+        testManager=new testManager();
+        System.out.println("Question to add id"+testManager.getQuestionsToAdd().getFirst().getId());
 
     }
     
