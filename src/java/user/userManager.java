@@ -154,8 +154,7 @@ public class userManager implements Serializable {
         for (Module m: selectedDiscipline.modules){
             System.out.println("Module"+m.name);
         }
-        testManager=new testManager();
-        System.out.println("Question to add id"+testManager.getQuestionsToAdd().getFirst().getId());
+        testManager=new testManager(manager);
 
     }
     
@@ -192,12 +191,9 @@ public class userManager implements Serializable {
         return "editContents";
     }
     
-    public void addModule(){
-        try {
-            manager.userService().addModule(moduleName, selectedDiscipline.getId());
-              System.out.println("DEBUG: ADDING MODULE: "+moduleName+" TO DISCIPLINE: "+selectedDiscipline.getName());
-        } catch (SQLException ex) {
-            Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+
+    
+    
+    
+       
 }

@@ -31,6 +31,7 @@
             <ui:define name="content">
                 <h:form>
 
+<p:commandButton value="Add Question" action="#{userManager.addQuestion}"/>
                     <p:fieldset legend="Add Module to #{userManager.selectedDiscipline.name}">
                         <center>
 
@@ -42,6 +43,7 @@
 
                             </p:panelGrid>
                             <p:panelGrid columns="2" >
+                                
                                 <p:commandButton value="Add Module" action="#{userManager.addModule}" />
                                 <p:commandButton value="Cancel" action="profile" ajax="false"/>
                             </p:panelGrid>

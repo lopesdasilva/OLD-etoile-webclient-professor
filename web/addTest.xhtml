@@ -30,57 +30,132 @@
 
             <ui:define name="content">
                 <h:form>
-
                     <p:fieldset legend="Add Test">
-                        <p:wizard>
-                            <p:tab title="Test Description" >
+                        <p:wizard id="addTestWizard"  >
+                            <p:tab title="Description" >
                                 <center>
                                     <h:outputText value="Test Name:"/>
-                                    <p:inputText value="Test Name" />
+                                    <p:inputText value="#{userManager.testManager.testName}"> 
+                                        <p:ajax event="keyup"/>
+                                    </p:inputText>
                                 </center>
                                 <p:panelGrid columns="3" >
                                     <p:column id="ModuleSelection">
                                         <h:outputText value="Module:"/><br/>
-                                        <p:selectOneMenu required="true" >  
-                                            <f:selectItem itemLabel="Select Module" noSelectionOption="true"  />  
-                                            <f:selectItems value="#{userManager.selectedDiscipline.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module}"/>  
-                                        </p:selectOneMenu>  
+                                        <h:form>
+                                            <p:selectOneMenu value="#{userManager.testManager.selectedModule}" >
+                                                <p:ajax event="change"/>
+                                                <f:selectItems value="#{userManager.selectedDiscipline.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module.id}"/>  
+                                            </p:selectOneMenu>  
+                                        </h:form>
                                     </p:column>
                                     <p:column id="StartDate">
                                         <h:outputText value="Start Date"/><br/>    
-                                        <p:calendar id="popupButtonCalStart" showOn="button" />  
-
+                                        <p:calendar value="#{userManager.testManager.start}" id="popupButtonCalStart" showOn="button" pattern="MM/dd/yyyy hh:mm a" />  
                                     </p:column>
                                     <p:column id="FinishDate">
                                         <h:outputText value="Finish Date"/><br/>  
-                                        <p:calendar  id="popupButtonCalFinish" showOn="button" />  
+                                        <p:calendar value="#{userManager.testManager.finish}" id="popupButtonCalFinish" showOn="button" pattern="MM/dd/yyyy hh:mm a"/>  
                                     </p:column>
-
                                 </p:panelGrid>
-
                                 <h:outputText value="Insert Test Description:"/><br/>
-                                <p:inputText value="Description"  size="50"/>
+                                <p:inputText value="#{userManager.testManager.testDescription}"  size="75"/>
+                            </p:tab>
+                            <p:tab title="Questions" >
+                                <p:menuButton value="Add Question" >  
+
+
+                                    <p:menuitem value="Open" onclick="addOpenQuestionDlg.show();"/>  
+                                    <p:menuitem value="One Choice" onclick="addOneChoiceQuestionDlg.show();"/>  
+                                    <p:menuitem value="Multiple Choice" onclick="addMultipleChoiceQuestionDlg.show();"/>  
+
+                                </p:menuButton> 
+                                <p:commandButton id="remQuestionButton" value="Remove Selected Question" action="#{userManager.testManager.removeQuestion}" update="questionsCheckbox"/>
+
+                                <p:selectOneRadio  id="questionsCheckbox" value="#{userManager.testManager.questionsToAddSelection}" layout="pageDirection"> 
+                                    <f:selectItems value="#{userManager.testManager.questionsToAdd}" var="question" itemLabel="#{question.text}" itemValue="#{question.text}"/>  
+                                </p:selectOneRadio>  
+
+
+
+
 
                             </p:tab>
-                            <p:tab title="Questions">
-                                <h:form>
-<!--                                    <p:selectManyCheckbox   layout="pageDirection">  
-                                        <f:selectItems value="#{userManager.testManager.questionsToAdd}" var="question" itemLabel="#{question.text}" itemValue="#{question}"/>  
-                                    </p:selectManyCheckbox>  -->
-<!--                                    <p:commandButton id="addQuestionButton" value="Add Question" onclick="addQuestionDlg.show();" type="button" />  -->
+                            <p:tab title="Confirmation" >
+                                <p:panelGrid columns="2">
+                                    <h:outputText value="Test name: "/>
+                                    <h:outputText value="#{userManager.testManager.testName}"/>
+                                    <h:outputText value="Start Date: "/>
+                                    <h:outputText value="#{userManager.testManager.start.toString()}"/>
+                                    <h:outputText value="Finish Date: "/>
+                                    <h:outputText value="#{userManager.testManager.finish}"/>
+                                    <h:outputText value="Test Descripition: "/>
+                                    <h:outputText value="#{userManager.testManager.testDescription}"/>
+                                    <h:outputText value="Number of Qustions: "/>
+                                    <h:outputText value="#{userManager.testManager.questionsToAdd.size()}"/>
 
-                                </h:form>
+                                </p:panelGrid>
+                                <p:commandButton value="Submit" action="#{userManager.testManager.submitTest}"/>
                             </p:tab>
 
                         </p:wizard>
-                        <p:dialog id="addQuestionDialog" header="Insert questions details" widgetVar="questionsToAdd">  
-                            <h:outputText value="Resistance to PrimeFaces is futile!" />
-<!--                            <p:inputText value="#{usermanager.testManager.newQuestionText}"/>-->
-                            
-                        </p:dialog> 
-
                     </p:fieldset>
+                    <p:dialog id="addOpenQuestionDialog" header="Insert questions details" widgetVar="addOpenQuestionDlg">
+
+                        <h:outputText value="Question text:"/>
+                        <p:inputText value="#{userManager.testManager.newQuestionText}">
+                            <p:ajax event="keyup"/>
+                        </p:inputText>
+
+                        <p:commandButton value="Add Open Question" action="#{userManager.testManager.addQuestion}" 
+                                         label="Open" oncomplete="addOpenQuestionDlg.hide();" update="questionsCheckbox"/>
+
+                    </p:dialog> 
+                    <p:dialog id="addOneChoiceQuestionDialog" header="Insert questions details" widgetVar="addOneChoiceQuestionDlg">
+                        <p:panelGrid columns="2">
+                            <h:outputText value="Question text:"/>
+                            <p:inputText value="#{userManager.testManager.newOneChoiceQuestionText}">
+                                <p:ajax event="keyup"/>
+                            </p:inputText>
+                            <h:outputText value="Hypothesis text:"/>
+                            <p:inputText value="#{userManager.testManager.newOneChoiceHypothesisText}">
+                                <p:ajax event="keyup"/>
+                            </p:inputText>
+                        </p:panelGrid>
+                        <p:selectManyCheckbox  id="hypothesis" layout="pageDirection"> 
+                            <f:selectItems value="#{userManager.testManager.oneChoicehypothesis}" var="hypothesis" itemLabel="#{hypothesis}" itemValue="#{hypothesis}"/>  
+                        </p:selectManyCheckbox>  
+                        <p:commandButton value="Add Hypothesis" action="#{userManager.testManager.addOneChoiceHypothesis}" 
+                                         update="hypothesis"/>
+                        <p:commandButton value="Add Question" action="#{userManager.testManager.addOneChoiceQuestion}" 
+                                         oncomplete="addOneChoiceQuestionDlg.hide();" update="questionsCheckbox"/>
+
+
+                    </p:dialog> 
+                    <p:dialog id="addMultipleChoiceQuestionDialog" header="Insert questions details" widgetVar="addMultipleChoiceQuestionDlg">
+                        <p:panelGrid columns="2">
+                            <h:outputText value="Question text:"/>
+                            <p:inputText value="#{userManager.testManager.newMultipleChoiceQuestionText}">
+                                <p:ajax event="keyup"/>
+                            </p:inputText>
+                            <h:outputText value="Hypothesis text:"/>
+                            <p:inputText value="#{userManager.testManager.newMultipleChoiceHypothesisText}">
+                                <p:ajax event="keyup"/>
+                            </p:inputText>
+                        </p:panelGrid>
+                        <p:selectManyCheckbox  id="hypothesisMultiple" layout="pageDirection"> 
+                            <f:selectItems value="#{userManager.testManager.multipleChoicehypothesis}" var="hypothesis" itemLabel="#{hypothesis}" itemValue="#{hypothesis}"/>  
+                        </p:selectManyCheckbox>  
+                        <p:commandButton value="Add Hypothesis" action="#{userManager.testManager.addMultipleChoiceHypothesis}" 
+                                         update="hypothesisMultiple"/>
+                        <p:commandButton value="Add Question" action="#{userManager.testManager.addMultipleChoiceQuestion}" 
+                                         oncomplete="addMultipleChoiceQuestionDlg.hide();" update="questionsCheckbox"/>
+
+
+                    </p:dialog> 
                 </h:form>
+
+
 
             </ui:define>
 
