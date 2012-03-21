@@ -14,6 +14,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -158,18 +160,22 @@ public class testManager {
         System.out.println("Selected Module:" + selectedModule);
         System.out.println("adding question text:" + newQuestionText);
         questionsToAdd.add(new OpenQuestion(0, newQuestionText));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Question Added"));
+
         return "success";
     }
 
     public String addOneChoiceQuestion() {
         System.out.println("Adding One Choice Question");
         questionsToAdd.add(new OneChoiceQuestion(newOneChoiceQuestionText, 0, oneChoicehypothesis, ""));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Question Added"));
         return "success";
     }
 
     public String addMultipleChoiceQuestion() {
         System.out.println("Adding Multiple Choice Question");
         questionsToAdd.add(new MultipleChoiceQuestion(newMultipleChoiceQuestionText, 0, multipleChoicehypothesis, multipleChoicehypothesis));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Question Added"));
         return "success";
     }
 
@@ -180,6 +186,7 @@ public class testManager {
                 questionsToAdd.remove(q);
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Question Removed"));
     }
 
     public void submitTest() {
@@ -202,14 +209,16 @@ public class testManager {
             }
 
         } catch (SQLException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Fail to add Test"));
             Logger.getLogger(testManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Test Added"));
     }
 
     public void addOneChoiceHypothesis() {
         System.out.println("adding hypothesis");
         oneChoicehypothesis.add(newOneChoiceHypothesisText);
+
     }
 
     public void addMultipleChoiceHypothesis() {

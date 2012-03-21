@@ -18,18 +18,35 @@
             <from-outcome>fail</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>  
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/addModule.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>addTest</from-outcome>
-            <to-view-id>/addTest.xhtml</to-view-id>
+            <from-outcome>logoff</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>           
         </navigation-case>  
         <navigation-case>
             <from-outcome>addModule</from-outcome>
             <to-view-id>/addModule.xhtml</to-view-id>
         </navigation-case> 
         <navigation-case>
-            <from-outcome>editContents</from-outcome>
-            <to-view-id>/editcontents.xhtml</to-view-id>
-        </navigation-case>
+            <from-outcome>addTest</from-outcome>
+            <to-view-id>/addTest.xhtml</to-view-id>
+        </navigation-case>  
     </navigation-rule>
-
+    <navigation-rule>
+        <from-view-id>/profile.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>logoff</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>           
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>addModule</from-outcome>
+            <to-view-id>/addModule.xhtml</to-view-id>
+        </navigation-case> 
+        <navigation-case>
+            <from-outcome>addTest</from-outcome>
+            <to-view-id>/addTest.xhtml</to-view-id>
+        </navigation-case>  
+    </navigation-rule>
 </faces-config>

@@ -13,7 +13,7 @@
             <ui:define name="toptop">
                 <h:form>
                     <h:panelGrid columns="5" styleClass="breadcrums" >
-                        <p:commandLink value="Profile" ajax="false" action="#{userManager.redirectProfile()}" />
+                        <p:commandLink value="Profile" ajax="false" action="profile" />
                         <h:outputLabel value=">"/>
                         <p:commandLink value="#{userManager.selectedDiscipline.name}" disabled="true"/>
                         <h:outputLabel value=">"/>
@@ -21,7 +21,7 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="3" styleClass="userbar">
-                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" />
+                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" disabled="true" />
                         <h:outputLabel value="|"/>
                         <p:commandLink value="Logoff" ajax="false" action="#{userManager.logOff()}"/>
                     </h:panelGrid>
@@ -30,8 +30,6 @@
 
             <ui:define name="content">
                 <h:form>
-
-<p:commandButton value="Add Question" action="#{userManager.addQuestion}"/>
                     <p:fieldset legend="Add Module to #{userManager.selectedDiscipline.name}">
                         <center>
 
@@ -43,8 +41,8 @@
 
                             </p:panelGrid>
                             <p:panelGrid columns="2" >
-                                
-                                <p:commandButton value="Add Module" action="#{userManager.addModule}" />
+
+                                <p:commandButton value="Add Module" action="#{userManager.addModule}" update="modules" />
                                 <p:commandButton value="Cancel" action="profile" ajax="false"/>
                             </p:panelGrid>
                         </center>
@@ -52,11 +50,13 @@
                     </p:fieldset>
                     <br/>
                     <p:fieldset legend="Modules">
-                        <p:selectManyCheckbox   layout="pageDirection">  
-                                            <f:selectItems value="#{userManager.selectedDiscipline.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module}"/>  
+                        <p:selectManyCheckbox  id="modules"  layout="pageDirection">  
+                            <f:selectItems value="#{userManager.selectedDiscipline.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module}"/>  
                         </p:selectManyCheckbox>  
                     </p:fieldset>
+                     <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" />
                 </h:form>
+                
             </ui:define>
 
 

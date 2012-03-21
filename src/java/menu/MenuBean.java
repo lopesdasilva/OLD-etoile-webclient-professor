@@ -52,28 +52,28 @@ public class MenuBean implements Serializable {
             item.setActionExpression(createAction_old("#{userManager.redirectAddTest}", String.class));
             submenu.getChildren().add(item);
 
-            MenuItem item2 = new MenuItem();
-            item2.setValue("Edit Contents");
-            item2.setAjax(false);
-            item2.setActionListener(createActionListener("#{userManager.redirectEditContents}"));
-            item2.setActionExpression(createAction_old("#{userManager.redirectEditContents}", String.class));
-            submenu.getChildren().add(item2);
-            MenuItem item3 = new MenuItem();
-            item3.setValue("Discussion Forum");
-            item3.setAjax(false);
-            item3.setActionListener(createActionListener("#{userManager.redirectDiscussionForum}"));
-            item3.setActionExpression(createAction_old("#{userManager.redirectDiscussionForum}", String.class));
-            submenu.getChildren().add(item3);
+//            MenuItem item2 = new MenuItem();
+//            item2.setValue("Edit Contents");
+//            item2.setAjax(false);
+//            item2.setActionListener(createActionListener("#{userManager.redirectEditContents}"));
+//            item2.setActionExpression(createAction_old("#{userManager.redirectEditContents}", String.class));
+//            submenu.getChildren().add(item2);
+//            MenuItem item3 = new MenuItem();
+//            item3.setValue("Discussion Forum");
+//            item3.setAjax(false);
+//            item3.setActionListener(createActionListener("#{userManager.redirectDiscussionForum}"));
+//            item3.setActionExpression(createAction_old("#{userManager.redirectDiscussionForum}", String.class));
+//            submenu.getChildren().add(item3);
 
-            for (Module m : d.getModules()) {
-                item = new MenuItem();
-                item.setValue(m.getName());
-                item.setAjax(false);
-                item.setActionListener(createActionListener("#{userManager.redirectModule}"));
-                item.setActionExpression(createAction_old("#{userManager.redirectModule}", String.class));
-
-                submenu.getChildren().add(item);
-            }
+//            for (Module m : d.getModules()) {
+//                item = new MenuItem();
+//                item.setValue(m.getName());
+//                item.setAjax(false);
+//                item.setActionListener(createActionListener("#{userManager.redirectModule}"));
+//                item.setActionExpression(createAction_old("#{userManager.redirectModule}", String.class));
+//
+//                submenu.getChildren().add(item);
+//            }
             model.addSubmenu(submenu);
         }
     }

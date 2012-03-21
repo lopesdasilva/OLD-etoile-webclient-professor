@@ -15,7 +15,7 @@
                     <p:commandLink value="Profile"  styleClass="breadcrums" />
 
                     <h:panelGrid columns="3" styleClass="userbar">
-                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" />
+                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" disabled="true" />
                         <h:outputLabel value="|"/>
                         <p:commandLink value="Logoff" ajax="false" action="#{userManager.logOff()}"/>
                     </h:panelGrid>

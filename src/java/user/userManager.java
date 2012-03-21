@@ -69,6 +69,7 @@ public class userManager implements Serializable {
     
     
     public MenuBean getMenu() {
+        this.menu = new MenuBean(current_user.getDisciplines());
         return menu;
     }
 
@@ -191,7 +192,23 @@ public class userManager implements Serializable {
         return "editContents";
     }
     
+    public void addModule(){
+        try {
+            System.out.println("Adding Module :"+moduleName );
+            manager.userService().addModule(moduleName, selectedDiscipline.getId());
+            
+            
+            //MARTELO
+            
+            
+        } catch (SQLException ex) {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fail", "Adding Module"));
 
+            Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Module Added"));
+
+    }
     
     
     

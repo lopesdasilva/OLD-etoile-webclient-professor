@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="addModule.xhtml" x="137" y="185" zoom="true"/>
+        <Node id="index.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="resources/templates/disciplineTemplate.xhtml" x="657" y="427" zoom="true"/>
+        <Node id="editcontents.xhtml" x="773" y="297" zoom="true"/>
+        <Node id="addTest.xhtml" x="69" y="28" zoom="true"/>
+        <Node id="profile.xhtml" x="407" y="74" zoom="true"/>
+        <Node id="resources/templates/indexTemplate.xhtml" x="661" y="474" zoom="true"/>
+        <Node id="resources/templates/profileTemplate.xhtml" x="655" y="380" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

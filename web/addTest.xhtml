@@ -13,7 +13,7 @@
             <ui:define name="toptop">
                 <h:form>
                     <h:panelGrid columns="5" styleClass="breadcrums" >
-                        <p:commandLink value="Profile" ajax="false" action="#{userManager.redirectProfile()}" />
+                        <p:commandLink value="Profile" ajax="false" action="profile" />
                         <h:outputLabel value=">"/>
                         <p:commandLink value="#{userManager.selectedDiscipline.name}" disabled="true"/>
                         <h:outputLabel value=">"/>
@@ -21,7 +21,7 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="3" styleClass="userbar">
-                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" />
+                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" disabled="true" />
                         <h:outputLabel value="|"/>
                         <p:commandLink value="Logoff" ajax="false" action="#{userManager.logOff()}"/>
                     </h:panelGrid>
@@ -35,7 +35,7 @@
                             <p:tab title="Description" >
                                 <center>
                                     <h:outputText value="Test Name:"/>
-                                    <p:inputText value="#{userManager.testManager.testName}"> 
+                                    <p:inputText value="#{userManager.testManager.testName}" required="true" requiredMessage="Please Insert a name"> 
                                         <p:ajax event="keyup"/>
                                     </p:inputText>
                                 </center>
@@ -43,7 +43,7 @@
                                     <p:column id="ModuleSelection">
                                         <h:outputText value="Module:"/><br/>
                                         <h:form>
-                                            <p:selectOneMenu value="#{userManager.testManager.selectedModule}" >
+                                            <p:selectOneMenu value="#{userManager.testManager.selectedModule}" required="true" requiredMessage="Please select a module">
                                                 <p:ajax event="change"/>
                                                 <f:selectItems value="#{userManager.selectedDiscipline.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module.id}"/>  
                                             </p:selectOneMenu>  
@@ -51,20 +51,19 @@
                                     </p:column>
                                     <p:column id="StartDate">
                                         <h:outputText value="Start Date"/><br/>    
-                                        <p:calendar value="#{userManager.testManager.start}" id="popupButtonCalStart" showOn="button" pattern="MM/dd/yyyy hh:mm a" />  
+                                        <p:calendar value="#{userManager.testManager.start}" id="popupButtonCalStart" showOn="button" pattern="MM/dd/yyyy hh:mm a" required="true" requiredMessage="Please select a start date"/>  
                                     </p:column>
                                     <p:column id="FinishDate">
                                         <h:outputText value="Finish Date"/><br/>  
-                                        <p:calendar value="#{userManager.testManager.finish}" id="popupButtonCalFinish" showOn="button" pattern="MM/dd/yyyy hh:mm a"/>  
+                                        <p:calendar value="#{userManager.testManager.finish}" id="popupButtonCalFinish" showOn="button" pattern="MM/dd/yyyy hh:mm a" required="true" requiredMessage="Please select a finish date"/>  
                                     </p:column>
                                 </p:panelGrid>
                                 <h:outputText value="Insert Test Description:"/><br/>
-                                <p:inputText value="#{userManager.testManager.testDescription}"  size="75"/>
+                                <p:inputText value="#{userManager.testManager.testDescription}"  size="75" required="true" requiredMessage="Please Insert a description"/>
                             </p:tab>
                             <p:tab title="Questions" >
+
                                 <p:menuButton value="Add Question" >  
-
-
                                     <p:menuitem value="Open" onclick="addOpenQuestionDlg.show();"/>  
                                     <p:menuitem value="One Choice" onclick="addOneChoiceQuestionDlg.show();"/>  
                                     <p:menuitem value="Multiple Choice" onclick="addMultipleChoiceQuestionDlg.show();"/>  
@@ -100,13 +99,13 @@
 
                         </p:wizard>
                     </p:fieldset>
-                    <p:dialog id="addOpenQuestionDialog" header="Insert questions details" widgetVar="addOpenQuestionDlg">
+                    <p:dialog id="addOpenQuestionDialog" header="Insert questions details" widgetVar="addOpenQuestionDlg" resizable="false" draggable="false">
 
-                        <h:outputText value="Question text:"/>
-                        <p:inputText value="#{userManager.testManager.newQuestionText}">
+                        <h:outputText value="Question text:"/><br/>
+                        <p:inputTextarea value="#{userManager.testManager.newQuestionText}" cols="50" required="true" requiredMessage="Please insert question text">
                             <p:ajax event="keyup"/>
-                        </p:inputText>
-
+                        </p:inputTextarea>
+                        <br/>
                         <p:commandButton value="Add Open Question" action="#{userManager.testManager.addQuestion}" 
                                          label="Open" oncomplete="addOpenQuestionDlg.hide();" update="questionsCheckbox"/>
 
@@ -153,6 +152,7 @@
 
 
                     </p:dialog> 
+                     <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" />
                 </h:form>
 
 
