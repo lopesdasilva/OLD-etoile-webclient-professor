@@ -4,13 +4,12 @@
  */
 package user;
 
-import etoile.javapi.professor.Discipline;
-import etoile.javapi.professor.Module;
-import etoile.javapi.professor.Professor;
-import etoile.javapi.professor.ServiceManager;
+import etoile.javaapi.question.Question;
+import etoile.javapi.professor.*;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -20,6 +19,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import menu.MenuBean;
+import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.menuitem.MenuItem;
 import org.primefaces.component.submenu.Submenu;
 import sha1.sha1;
@@ -39,6 +39,40 @@ public class userManager implements Serializable {
     private Discipline selectedDiscipline;
     private String moduleName;
     private testManager testManager;
+    
+        public Test selectedTest;
+
+    private Module selectedModule;
+    private LinkedList<Result> testResults;
+
+    public LinkedList<Result> getTestResults() {
+        return testResults;
+    }
+
+    public void setTestResults(LinkedList<Result> testResults) {
+        this.testResults = testResults;
+    }
+
+  
+    
+    public Test getSelectedTest() {
+        return selectedTest;
+    }
+
+    public void setSelectedTest(Test selectedTest) {
+        this.selectedTest = selectedTest;
+    }
+
+    
+    public Module getSelectedModule() {
+        return selectedModule;
+    }
+
+    public void setSelectedModule(Module selectedModule) {
+        this.selectedModule = selectedModule;
+    }
+    
+    
 
     public testManager getTestManager() {
         return testManager;
@@ -196,7 +230,7 @@ public class userManager implements Serializable {
         try {
             System.out.println("Adding Module :"+moduleName );
             manager.userService().addModule(moduleName, selectedDiscipline.getId());
-            
+            manager.userService().updateModules(selectedDiscipline);
             
             //MARTELO
             
@@ -210,7 +244,58 @@ public class userManager implements Serializable {
 
     }
     
-    
-    
+        public String redirectModule() {
+        System.out.println("DEBUG: Redirecting to Module");
+        return "module";
+
+    }
+
+    public void redirectModule(ActionEvent event) {
+        try {
+            Object obj = event.getSource();
+            MenuItem aux_info = (MenuItem) obj;
+            Submenu aux_discipline = (Submenu) aux_info.getParent();
+
+            selectedDiscipline = manager.userService().getDiscipline(aux_discipline.getLabel());
+            selectedModule = manager.userService().getModule(aux_info.getValue().toString());
+            manager.userService().updateTests(selectedModule);
+        } catch (SQLException ex) {
+            Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("DEBUG: SELECTED DISCIPLINE: " + selectedDiscipline.name + " ID: " + selectedDiscipline.getId());
+        System.out.println("DEBUG: SELECTED MODULE: " + selectedModule.name + " ID: " + selectedModule.getId());
+
+    }
+   public void checkResults(ActionEvent actionEvent) {
+        try {
+            System.out.println("DEBUG: Check Results");
+            Object obj = actionEvent.getSource();
+            CommandButton cb = (CommandButton) obj;
+            
+            for (Test t : selectedModule.getTests()) {
+                if (t.getId() == Integer.parseInt(cb.getLabel())) {
+                    try {
+                        this.selectedTest = t;
+                        selectedTest.setQuestions(new LinkedList<Question>());
+                        manager.userService().updateQuestions(selectedTest);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            testResults = manager.userService().getOpenQuestionTestResults(selectedTest.getId());
+            System.out.println("DEBUG: SELECTED TEST: " + selectedTest.name + " ID: " + selectedTest.getId());
+    //        System.out.println("DEBUG: SELECTED TEST AUTHOR: " + selectedTest.author);
+        } catch (SQLException ex) {
+            Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }
+
+    public String redirectResults() {
+        System.out.println("DEBUG: Redirecting to results");
+        return "results";
+    }    
        
 }

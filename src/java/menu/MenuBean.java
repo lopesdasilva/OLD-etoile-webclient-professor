@@ -65,15 +65,15 @@ public class MenuBean implements Serializable {
 //            item3.setActionExpression(createAction_old("#{userManager.redirectDiscussionForum}", String.class));
 //            submenu.getChildren().add(item3);
 
-//            for (Module m : d.getModules()) {
-//                item = new MenuItem();
-//                item.setValue(m.getName());
-//                item.setAjax(false);
-//                item.setActionListener(createActionListener("#{userManager.redirectModule}"));
-//                item.setActionExpression(createAction_old("#{userManager.redirectModule}", String.class));
-//
-//                submenu.getChildren().add(item);
-//            }
+            for (Module m : d.getModules()) {
+                item = new MenuItem();
+                item.setValue(m.getName());
+                item.setAjax(false);
+                item.setActionListener(createActionListener("#{userManager.redirectModule}"));
+                item.setActionExpression(createAction_old("#{userManager.redirectModule}", String.class));
+
+                submenu.getChildren().add(item);
+            }
             model.addSubmenu(submenu);
         }
     }

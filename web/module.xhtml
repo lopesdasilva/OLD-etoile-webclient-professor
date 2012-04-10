@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./resources/templates/disciplineTemplate.xhtml">
+
+            <ui:define name="toptop">
+                <h:form>
+                    <h:panelGrid columns="5" styleClass="breadcrums" >
+                        <p:commandLink value="Profile" ajax="false" action="#{userManager.redirectProfile()}" />
+                        <h:outputLabel value=">"/>
+                        <p:commandLink value="#{userManager.selectedDiscipline.name}" action="#{userManager.redirectAnnouncements()}" disabled="true" ajax="false"/>
+                        <h:outputLabel value=">"/>
+                        <p:commandLink value="#{userManager.selectedModule.name}" disabled="true"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3" styleClass="userbar">
+                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}"  disabled="true"/>
+                        <h:outputLabel value="|"/>
+                        <p:commandLink value="Logoff" ajax="false" action="#{userManager.logOff()}" />
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form>
+
+
+
+
+
+                    <p:fieldset legend="#{userManager.selectedModule.name}" >
+                        <p:accordionPanel value="#{userManager.selectedModule.tests}" var="test" style="width:500px;height:300px;" >
+                            <p:tab title="#{test.name}" style="max-width: 300px" >  
+                                <h:panelGrid id="pgrid" columns="2" cellpadding="10">
+                                    <h:outputText value="Name:" style="font-weight: bold"/>
+                                    <h:outputText value="#{test.name}"/>
+                                    <h:outputText value="Description:" style="font-weight: bold"/>
+                                    <h:outputText value="#{test.description}"/>
+                                    <h:outputText value="Begin date:" style="font-weight: bold"/>
+                                    <h:outputText value="#{test.beginDate.toString()}"/>
+                                    <h:outputText value="End date:" style="font-weight: bold"/>
+                                    <h:outputText value="#{test.endDate.toString()}"/>
+                                </h:panelGrid>
+
+                                <p:column>
+
+                                     <p:commandButton value="Check Results"  label="#{test.id}" actionListener="#{userManager.checkResults}" action="#{userManager.redirectResults}" ajax="false"/>
+                                </p:column>
+                            
+
+                            </p:tab>
+
+                        </p:accordionPanel>
+
+                    </p:fieldset>
+                    <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" />
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

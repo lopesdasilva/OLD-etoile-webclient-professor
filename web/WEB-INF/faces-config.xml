@@ -33,6 +33,10 @@
             <from-outcome>addTest</from-outcome>
             <to-view-id>/addTest.xhtml</to-view-id>
         </navigation-case>  
+        <navigation-case>
+            <from-outcome>module</from-outcome>
+            <to-view-id>/module.xhtml</to-view-id>
+        </navigation-case> 
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/profile.xhtml</from-view-id>
@@ -48,5 +52,51 @@
             <from-outcome>addTest</from-outcome>
             <to-view-id>/addTest.xhtml</to-view-id>
         </navigation-case>  
+        <navigation-case>
+            <from-outcome>module</from-outcome>
+            <to-view-id>/module.xhtml</to-view-id>
+        </navigation-case> 
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/addTest.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>logoff</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>           
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>addModule</from-outcome>
+            <to-view-id>/addModule.xhtml</to-view-id>
+        </navigation-case> 
+        <navigation-case>
+            <from-outcome>addTest</from-outcome>
+            <to-view-id>/addTest.xhtml</to-view-id>
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>module</from-outcome>
+            <to-view-id>/module.xhtml</to-view-id>
+        </navigation-case> 
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/module.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>logoff</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>           
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>addModule</from-outcome>
+            <to-view-id>/addModule.xhtml</to-view-id>
+        </navigation-case> 
+        <navigation-case>
+            <from-outcome>addTest</from-outcome>
+            <to-view-id>/addTest.xhtml</to-view-id>
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>module</from-outcome>
+            <to-view-id>/module.xhtml</to-view-id>
+        </navigation-case> 
+        <navigation-case>
+            <from-outcome>results</from-outcome>
+            <to-view-id>/resultTest.xhtml</to-view-id>
+        </navigation-case> 
     </navigation-rule>
 </faces-config>

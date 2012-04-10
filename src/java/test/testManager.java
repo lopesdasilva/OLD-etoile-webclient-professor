@@ -162,6 +162,7 @@ public class testManager {
         questionsToAdd.add(new OpenQuestion(0, newQuestionText));
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Question Added"));
 
+        newQuestionText="";
         return "success";
     }
 
@@ -169,6 +170,10 @@ public class testManager {
         System.out.println("Adding One Choice Question");
         questionsToAdd.add(new OneChoiceQuestion(newOneChoiceQuestionText, 0, oneChoicehypothesis, ""));
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Question Added"));
+        
+    newOneChoiceHypothesisText="";
+    newOneChoiceQuestionText="";
+    oneChoicehypothesis = new LinkedList<String>();
         return "success";
     }
 
@@ -176,6 +181,11 @@ public class testManager {
         System.out.println("Adding Multiple Choice Question");
         questionsToAdd.add(new MultipleChoiceQuestion(newMultipleChoiceQuestionText, 0, multipleChoicehypothesis, multipleChoicehypothesis));
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Question Added"));
+   
+    newMultipleChoiceHypothesisText="";
+    newMultipleChoiceQuestionText="";
+    multipleChoicehypothesis = new LinkedList<String>();
+        
         return "success";
     }
 

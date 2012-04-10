@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./resources/templates/disciplineTemplate.xhtml">
+
+            <ui:define name="toptop">
+                <h:form>
+                    <h:panelGrid columns="5" styleClass="breadcrums" >
+                        <p:commandLink value="Profile" ajax="false" action="#{userManager.redirectProfile()}" />
+                        <h:outputLabel value=">"/>
+                        <p:commandLink value="#{userManager.selectedDiscipline.name}" action="#{userManager.redirectAnnouncements()}" disabled="true" ajax="false"/>
+                        <h:outputLabel value=">"/>
+                        <p:commandLink value="#{userManager.selectedModule.name}" disabled="true"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3" styleClass="userbar">
+                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" disabled="true"/>
+                        <h:outputLabel value="|"/>
+                        <p:commandLink value="Logoff" ajax="false" action="#{userManager.logOff()}"/>
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="content">
+    <h:form>
+        <p:dataTable id="questions" var="q" value="#{userManager.testResults}">
+                        <p:column id="user">
+                            <f:facet name="header">
+                                Username
+                            </f:facet>
+                            <h:outputText value="#{q.username}" />
+                        </p:column>
+
+                        <p:column id="questionsHeader"> 
+                            <f:facet name="header">  
+                                Question  
+                            </f:facet>  
+                            <h:outputText value="#{q.question}" />  
+                        </p:column>  
+                        <p:column id="answerHeader"> 
+                            <f:facet name="header">  
+                                Answer
+                            </f:facet>
+
+                            <h:outputText value="#{q.answer}"/>  
+                            
+                        </p:column>
+
+                    </p:dataTable>
+                    <br></br>
+                    <h:commandLink value="#{userManager.username}_#{userManager.selectedTest.name}()">
+                        <p:graphicImage value="resources/images/pdf.png" />  
+
+                        <p:dataExporter type="pdf" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}()"/>  
+
+                    </h:commandLink>
+                    <h:commandLink>  
+                        <p:graphicImage value="resources/images/excel.png" />  
+                        <p:dataExporter type="xls" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}()" pageOnly="true"/> 
+                    </h:commandLink>  
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
