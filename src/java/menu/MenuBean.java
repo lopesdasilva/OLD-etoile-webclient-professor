@@ -45,7 +45,7 @@ public class MenuBean implements Serializable {
             
             
             item = new MenuItem();
-            item.setValue("Manage Test");
+            item.setValue("Add Test");
             //item.setId(d.getId()+"");
             item.setAjax(false);
             item.setActionListener(createActionListener("#{userManager.redirectAddTest}"));

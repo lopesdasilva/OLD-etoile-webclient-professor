@@ -39,11 +39,18 @@ public class userManager implements Serializable {
     private Discipline selectedDiscipline;
     private String moduleName;
     private testManager testManager;
-    
-        public Test selectedTest;
-
+    private String removeModuleSelection;
+    public Test selectedTest;
     private Module selectedModule;
     private LinkedList<Result> testResults;
+
+    public String getRemoveModuleSelection() {
+        return removeModuleSelection;
+    }
+
+    public void setRemoveModuleSelection(String removeModuleSelection) {
+        this.removeModuleSelection = removeModuleSelection;
+    }
 
     public LinkedList<Result> getTestResults() {
         return testResults;
@@ -53,8 +60,6 @@ public class userManager implements Serializable {
         this.testResults = testResults;
     }
 
-  
-    
     public Test getSelectedTest() {
         return selectedTest;
     }
@@ -63,7 +68,6 @@ public class userManager implements Serializable {
         this.selectedTest = selectedTest;
     }
 
-    
     public Module getSelectedModule() {
         return selectedModule;
     }
@@ -71,8 +75,6 @@ public class userManager implements Serializable {
     public void setSelectedModule(Module selectedModule) {
         this.selectedModule = selectedModule;
     }
-    
-    
 
     public testManager getTestManager() {
         return testManager;
@@ -82,7 +84,6 @@ public class userManager implements Serializable {
         this.testManager = testManager;
     }
 
-    
     public String getModuleName() {
         return moduleName;
     }
@@ -90,8 +91,7 @@ public class userManager implements Serializable {
     public void setModuleName(String moduleName) {
         this.moduleName = moduleName;
     }
-    
-    
+
     public Discipline getSelectedDiscipline() {
         return selectedDiscipline;
     }
@@ -100,8 +100,6 @@ public class userManager implements Serializable {
         this.selectedDiscipline = selectedDiscipline;
     }
 
-    
-    
     public MenuBean getMenu() {
         this.menu = new MenuBean(current_user.getDisciplines());
         return menu;
@@ -186,19 +184,19 @@ public class userManager implements Serializable {
         Submenu aux_discipline = (Submenu) aux_info.getParent();
         selectedDiscipline = manager.userService().getDiscipline(aux_discipline.getLabel());
         System.out.println("DEBUG: SELECTED DISCIPLINE: " + selectedDiscipline.name + " ID: " + selectedDiscipline.getId());
-        for (Module m: selectedDiscipline.modules){
-            System.out.println("Module"+m.name);
+        for (Module m : selectedDiscipline.modules) {
+            System.out.println("Module" + m.name);
         }
-        testManager=new testManager(manager);
+        testManager = new testManager(manager);
 
     }
-    
+
     public String redirectAddTest() {
-       System.out.println("DEBUG: Redirecting to addTest");
+        System.out.println("DEBUG: Redirecting to addTest");
         return "addTest";
     }
-    
-      public void redirectAddModule(ActionEvent event) {
+
+    public void redirectAddModule(ActionEvent event) {
         Object obj = event.getSource();
         MenuItem aux_info = (MenuItem) obj;
         Submenu aux_discipline = (Submenu) aux_info.getParent();
@@ -206,12 +204,12 @@ public class userManager implements Serializable {
         System.out.println("DEBUG: SELECTED DISCIPLINE: " + selectedDiscipline.name + " ID: " + selectedDiscipline.getId());
 
     }
-    
+
     public String redirectAddModule() {
-       System.out.println("DEBUG: Redirecting to addModule");
+        System.out.println("DEBUG: Redirecting to addModule");
         return "addModule";
     }
-    
+
     public void redirectEditContents(ActionEvent event) {
         Object obj = event.getSource();
         MenuItem aux_info = (MenuItem) obj;
@@ -220,31 +218,31 @@ public class userManager implements Serializable {
         System.out.println("DEBUG: SELECTED DISCIPLINE: " + selectedDiscipline.name + " ID: " + selectedDiscipline.getId());
 
     }
-    
+
     public String redirectEditContents() {
-       System.out.println("DEBUG: Redirecting to Edit Contents");
+        System.out.println("DEBUG: Redirecting to Edit Contents");
         return "editContents";
     }
-    
-    public void addModule(){
+
+    public void addModule() {
         try {
-            System.out.println("Adding Module :"+moduleName );
+            System.out.println("Adding Module :" + moduleName);
             manager.userService().addModule(moduleName, selectedDiscipline.getId());
             manager.userService().updateModules(selectedDiscipline);
-            
+
             //MARTELO
-            
-            
+
+
         } catch (SQLException ex) {
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fail", "Adding Module"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fail", "Adding Module"));
 
             Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Module Added"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Module Added"));
 
     }
-    
-        public String redirectModule() {
+
+    public String redirectModule() {
         System.out.println("DEBUG: Redirecting to Module");
         return "module";
 
@@ -266,12 +264,13 @@ public class userManager implements Serializable {
         System.out.println("DEBUG: SELECTED MODULE: " + selectedModule.name + " ID: " + selectedModule.getId());
 
     }
-   public void checkResults(ActionEvent actionEvent) {
+
+    public void checkResults(ActionEvent actionEvent) {
         try {
             System.out.println("DEBUG: Check Results");
             Object obj = actionEvent.getSource();
             CommandButton cb = (CommandButton) obj;
-            
+
             for (Test t : selectedModule.getTests()) {
                 if (t.getId() == Integer.parseInt(cb.getLabel())) {
                     try {
@@ -285,7 +284,7 @@ public class userManager implements Serializable {
             }
             testResults = manager.userService().getOpenQuestionTestResults(selectedTest.getId());
             System.out.println("DEBUG: SELECTED TEST: " + selectedTest.name + " ID: " + selectedTest.getId());
-    //        System.out.println("DEBUG: SELECTED TEST AUTHOR: " + selectedTest.author);
+            //        System.out.println("DEBUG: SELECTED TEST AUTHOR: " + selectedTest.author);
         } catch (SQLException ex) {
             Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -296,6 +295,41 @@ public class userManager implements Serializable {
     public String redirectResults() {
         System.out.println("DEBUG: Redirecting to results");
         return "results";
-    }    
-       
+    }
+
+    public void removeModule() {
+        System.out.println("Removing Selected Module");
+        for (Module m : selectedDiscipline.getModules()) {
+            if (m.name.equals(removeModuleSelection)) {
+                try {
+                    manager.userService().removeModule(selectedDiscipline.getId(),m.getId());
+                } catch (SQLException ex) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fail", "Fail to remove module"));
+                }
+            }
+        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Module Removed"));
+    }
+    
+    public void removeTest(ActionEvent actionEvent) {
+        System.out.println("Removing Selected Test");
+        
+           System.out.println("DEBUG: Check Results");
+            Object obj = actionEvent.getSource();
+            CommandButton cb = (CommandButton) obj;
+
+            for (Test t : selectedModule.getTests()) {
+                if (t.getId() == Integer.parseInt(cb.getLabel())) {
+                try {
+                    this.selectedTest = t;
+                    manager.userService().removeTest(selectedDiscipline.getId(),selectedModule.getId(), t.getId());
+                } catch (SQLException ex) {
+                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fail", "Test not removed"));
+                }
+                
+                    }
+                }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Test Removed"));
+    }
+    
 }

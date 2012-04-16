@@ -38,7 +38,16 @@ public class testManager {
     private String newMultipleChoiceHypothesisText;
     private String newMultipleChoiceQuestionText;
     private LinkedList<String> multipleChoicehypothesis = new LinkedList<String>();
+    private String url;
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    
     public String getNewMultipleChoiceHypothesisText() {
         return newMultipleChoiceHypothesisText;
     }
@@ -198,11 +207,13 @@ public class testManager {
         }
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Question Removed"));
     }
-
+    
+       
+    
     public void submitTest() {
         try {
             System.out.println("Submiting test");
-            int testid = manager.userService().addTest(testName, "Teacher", new java.sql.Date(startDate.getTime()), new java.sql.Date(finishDate.getTime()), testDescription, selectedModule);
+            int testid = manager.userService().addTest(testName, "Teacher", new java.sql.Date(startDate.getTime()), new java.sql.Date(finishDate.getTime()), testDescription, selectedModule,url);
             int questionNumber = 0;
             for (Question q : questionsToAdd) {
 

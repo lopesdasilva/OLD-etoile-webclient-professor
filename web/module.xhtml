@@ -36,8 +36,8 @@
 
 
 
-                    <p:fieldset legend="#{userManager.selectedModule.name}" >
-                        <p:accordionPanel value="#{userManager.selectedModule.tests}" var="test" style="width:500px;height:300px;" >
+                    <p:fieldset id="testlist" legend="#{userManager.selectedModule.name}" >
+                        <p:accordionPanel id="tests" value="#{userManager.selectedModule.tests}" var="test" style="width:500px;height:300px;" >
                             <p:tab title="#{test.name}" style="max-width: 300px" >  
                                 <h:panelGrid id="pgrid" columns="2" cellpadding="10">
                                     <h:outputText value="Name:" style="font-weight: bold"/>
@@ -53,6 +53,8 @@
                                 <p:column>
 
                                      <p:commandButton value="Check Results"  label="#{test.id}" actionListener="#{userManager.checkResults}" action="#{userManager.redirectResults}" ajax="false"/>
+                                     <p:commandButton value="Remove Test" label="#{test.id}" actionListener="#{userManager.removeTest}" update="tests" ajax="false"/>
+                                
                                 </p:column>
                             
 

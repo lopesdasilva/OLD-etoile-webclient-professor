@@ -50,9 +50,10 @@
                     </p:fieldset>
                     <br/>
                     <p:fieldset legend="Modules">
-                        <p:selectManyCheckbox  id="modules"  layout="pageDirection">  
-                            <f:selectItems value="#{userManager.selectedDiscipline.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module}"/>  
-                        </p:selectManyCheckbox>  
+                        <p:selectOneRadio  id="modules" value="#{userManager.removeModuleSelection}"  layout="pageDirection">  
+                            <f:selectItems value="#{userManager.selectedDiscipline.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module.name}"/>  
+                        </p:selectOneRadio>
+                         <p:commandButton value="Remove Selected"  action="#{userManager.removeModule}" update="modules" />
                     </p:fieldset>
                      <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" />
                 </h:form>
