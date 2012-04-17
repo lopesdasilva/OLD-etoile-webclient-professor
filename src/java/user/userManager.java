@@ -224,7 +224,14 @@ public class userManager implements Serializable {
         return "editContents";
     }
 
-    public void addModule() {
+    public int addModule() {
+        for (Module m:selectedDiscipline.modules){
+            if (m.name.equals(moduleName)){
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fail", "Module already exists"));
+            return 0;
+            }
+        }
+        
         try {
             System.out.println("Adding Module :" + moduleName);
             manager.userService().addModule(moduleName, selectedDiscipline.getId());
@@ -239,7 +246,7 @@ public class userManager implements Serializable {
             Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Module Added"));
-
+        return 1;
     }
 
     public String redirectModule() {

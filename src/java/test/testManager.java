@@ -210,7 +210,7 @@ public class testManager {
     
        
     
-    public void submitTest() {
+    public String submitTest() {
         try {
             System.out.println("Submiting test");
             int testid = manager.userService().addTest(testName, "Teacher", new java.sql.Date(startDate.getTime()), new java.sql.Date(finishDate.getTime()), testDescription, selectedModule,url);
@@ -228,12 +228,16 @@ public class testManager {
                     manager.userService().addMultipleChoiceQuestion(q, testid, questionNumber);
                 }
             }
+            clearTest();
+            
 
         } catch (SQLException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Fail to add Test"));
             Logger.getLogger(testManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Test Added"));
+        return "addTest";
     }
 
     public void addOneChoiceHypothesis() {
@@ -245,5 +249,22 @@ public class testManager {
     public void addMultipleChoiceHypothesis() {
         System.out.println("adding hypothesis");
         multipleChoicehypothesis.add(newMultipleChoiceHypothesisText);
+    }
+
+    private void clearTest() {
+    questionsToAdd = new LinkedList<Question>();
+    questionsToAddSelection="";
+    testName="";
+    testDescription="";
+    startDate=null;
+    finishDate=null;
+    newQuestionText="";
+    newOneChoiceHypothesisText="";
+    newOneChoiceQuestionText="";
+    oneChoicehypothesis = new LinkedList<String>();
+    newMultipleChoiceHypothesisText="";
+    newMultipleChoiceQuestionText="";
+    multipleChoicehypothesis = new LinkedList<String>();
+    url="";
     }
 }

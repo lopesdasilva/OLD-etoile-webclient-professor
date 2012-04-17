@@ -3,15 +3,15 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="resultTest.xhtml" x="162" y="131" zoom="true"/>
-        <Node id="addModule.xhtml" x="104" y="242" zoom="true"/>
         <Node id="module.xhtml" x="394" y="187" zoom="true"/>
+        <Node id="addModule.xhtml" x="104" y="242" zoom="true"/>
         <Node id="index.xhtml" x="150" y="450" zoom="true"/>
         <Node id="resources/templates/disciplineTemplate.xhtml" x="657" y="427" zoom="true"/>
         <Node id="editcontents.xhtml" x="773" y="297" zoom="true"/>
         <Node id="addTest.xhtml" x="69" y="28" zoom="true"/>
         <Node id="profile.xhtml" x="407" y="74" zoom="true"/>
-        <Node id="resources/templates/indexTemplate.xhtml" x="661" y="474" zoom="true"/>
         <Node id="resources/templates/profileTemplate.xhtml" x="655" y="380" zoom="true"/>
+        <Node id="resources/templates/indexTemplate.xhtml" x="661" y="474" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>
