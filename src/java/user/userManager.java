@@ -36,6 +36,10 @@ public class userManager implements Serializable {
     private ServiceManager manager;
     private MenuBean menu;
     private Professor current_user;
+
+    public Professor getCurrent_user() {
+        return current_user;
+    }
     private Discipline selectedDiscipline;
     private String moduleName;
     private testManager testManager;
@@ -142,6 +146,7 @@ public class userManager implements Serializable {
 
                 current_user = manager.getCurrentProfessor();
                 manager.userService().updateDisciplines(current_user.getId());
+                manager.userService().getNews();
 
                 this.menu = new MenuBean(current_user.getDisciplines());
 
