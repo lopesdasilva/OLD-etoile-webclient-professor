@@ -44,6 +44,15 @@ public class userManager implements Serializable {
     private Module selectedModule;
     private LinkedList<Result> testResults;
 
+    public Professor getCurrent_user() {
+        return current_user;
+    }
+
+    public void setCurrent_user(Professor current_user) {
+        this.current_user = current_user;
+    }
+    
+
     public String getRemoveModuleSelection() {
         return removeModuleSelection;
     }
