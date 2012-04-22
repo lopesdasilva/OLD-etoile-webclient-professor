@@ -42,7 +42,7 @@
                             </p:panelGrid>
                             <p:panelGrid columns="2" >
 
-                                <p:commandButton value="Add Module" action="#{userManager.addModule}" update="modules" />
+                                <p:commandButton value="Add Module" action="#{userManager.addModule}" update="modules" ajax="false"/>
                                 <p:commandButton value="Cancel" action="profile" ajax="false"/>
                             </p:panelGrid>
                         </center>
@@ -53,7 +53,7 @@
                         <p:selectOneRadio  id="modules" value="#{userManager.removeModuleSelection}"  layout="pageDirection">  
                             <f:selectItems value="#{userManager.selectedDiscipline.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module.name}"/>  
                         </p:selectOneRadio>
-                         <p:commandButton value="Remove Selected"  action="#{userManager.removeModule}" update="modules" />
+                         <p:commandButton value="Remove Selected"  action="#{userManager.removeModule}" update="modules" ajax="false"/>
                     </p:fieldset>
                      <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" />
                 </h:form>

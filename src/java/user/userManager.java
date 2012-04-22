@@ -36,7 +36,7 @@ public class userManager implements Serializable {
     private ServiceManager manager;
     private MenuBean menu;
     private Professor current_user;
-    private Discipline selectedDiscipline;
+    public Discipline selectedDiscipline;
     private String moduleName;
     private testManager testManager;
     private String removeModuleSelection;
@@ -234,8 +234,7 @@ public class userManager implements Serializable {
         
         try {
             System.out.println("Adding Module :" + moduleName);
-            manager.userService().addModule(moduleName, selectedDiscipline.getId());
-            manager.userService().updateModules(selectedDiscipline);
+            manager.userService().addModule(moduleName, selectedDiscipline);
 
             //MARTELO
 
@@ -309,7 +308,7 @@ public class userManager implements Serializable {
         for (Module m : selectedDiscipline.getModules()) {
             if (m.name.equals(removeModuleSelection)) {
                 try {
-                    manager.userService().removeModule(selectedDiscipline.getId(),m.getId());
+                    manager.userService().removeModule(selectedDiscipline,m.getId());
                 } catch (SQLException ex) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fail", "Fail to remove module"));
                 }
@@ -329,7 +328,7 @@ public class userManager implements Serializable {
                 if (t.getId() == Integer.parseInt(cb.getLabel())) {
                 try {
                     this.selectedTest = t;
-                    manager.userService().removeTest(selectedDiscipline.getId(),selectedModule.getId(), t.getId());
+                    manager.userService().removeTest(selectedModule, t.getId());
                 } catch (SQLException ex) {
                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fail", "Test not removed"));
                 }
