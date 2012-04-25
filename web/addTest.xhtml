@@ -30,6 +30,14 @@
             </ui:define>
 
             <ui:define name="content">
+                <p:dialog modal="true" widgetVar="statusDialog" header="Please wait..."   
+                          resizable="false" draggable="false" closable="false" showHeader="false">  
+                    <center>
+                        <h:outputText value="Loading, please wait..."/>
+                        <br/>
+                        <p:graphicImage value="resources/images/ajaxloadingbar.gif" />
+                    </center>
+                </p:dialog> 
                 <h:form>
                     <p:fieldset legend="Add Test">
                         <p:wizard id="addTestWizard" showStepStatus="false"  showNavBar="true" style="width: 800px" >
@@ -89,7 +97,7 @@
                             <p:tab title="Confirmation" >
                                 <p:panel  style="min-height:  350px">
 
-                                    <p:commandButton value="Submit" action="#{userManager.testManager.submitTest}" ajax="false" />
+                                    <p:commandButton value="Submit" onclick="statusDialog.show();"  action="#{userManager.testManager.submitTest}" ajax="false" />
                                     <p:panelGrid columns="2">
                                         <h:outputText value="Test name: "/>
                                         <h:outputText value="#{userManager.testManager.testName}"/>
