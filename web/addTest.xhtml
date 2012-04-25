@@ -12,7 +12,7 @@
             <ui:define name="toptop">
                 <h:form>
                     <h:panelGrid columns="5" styleClass="breadcrums" >
-                        <p:commandLink value="Profile" ajax="false" action="profile" />
+                        <p:commandLink value="Home" ajax="false" action="profile" />
                         <h:outputLabel value=">"/>
                         <p:commandLink value="#{userManager.selectedDiscipline.name}" disabled="true"/>
                         <h:outputLabel value=">"/>
@@ -97,7 +97,7 @@
                                         <h:outputText value="#{userManager.testManager.start.toString()}"/>
                                         <h:outputText value="Finish Date: "/>
                                         <h:outputText value="#{userManager.testManager.finish}"/>
-                                        <h:outputText value="Number of Qustions: "/>
+                                        <h:outputText value="Number of Questions: "/>
                                         <h:outputText value="#{userManager.testManager.questionsToAdd.size()}"/>
                                         <h:outputText value="Test Descripition: "/>
                                     </p:panelGrid>
