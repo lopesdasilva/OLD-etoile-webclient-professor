@@ -396,9 +396,9 @@ public class userManager implements Serializable {
     public void saveDescription() {
         try {
             System.out.println("DEBUG Edit Contents for Discipline: " + selectedDiscipline.name);
-            System.out.println("DEBUG Edit Contens new Content:" + editDescription);
+            System.out.println("DEBUG Edit Contens new Content:" +  selectedDiscipline.description);
             
-            manager.userService().changeDisciplineDescription(selectedDiscipline, editDescription);
+            manager.userService().changeDisciplineDescription(selectedDiscipline, selectedDiscipline.description);
         } catch (SQLException ex) {
             Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
         }

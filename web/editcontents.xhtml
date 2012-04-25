@@ -34,37 +34,16 @@
                 <p:fieldset legend="Edit Contents" style="width: 800px">
                     <h:form>
                         <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" />
-                        <p:editor value="#{userManager.editDescription}" width="800"/>
+                        <p:editor value="#{userManager.selectedDiscipline.description}" width="800"/>
 
 
-                        <p:commandButton value="Save" icon="ui-icon-disk" actionListener="#{userManager.saveDescription}"/>
+                        <p:commandButton value="Save" icon="ui-icon-disk" ajax="false" actionListener="#{userManager.saveDescription}"/>
                     </h:form>
                     <h:outputText value="Preview:"/>
                     <br/>
-                    <h:outputText value="#{userManager.editDescription}" escape="false" ></h:outputText>
+                    <h:outputText value="#{userManager.selectedDiscipline.description}" escape="false" ></h:outputText>
                 </p:fieldset>
-                <p:idleMonitor timeout="60000">
-                    <p:ajax
-                        event="idle"
-                        listener="#{userManager.idleListener}"
-                        oncomplete="idleDialog.show()" />
-                    <p:ajax
-                        event="active"
-                        listener="#{userManager.activeListener}" />
-                </p:idleMonitor>
-                <p:dialog
-                    header="Session Exceeded Idle Limit"
-                    widgetVar="idleDialog"
-                    modal="true"
-                    closable="false"
-                    draggable="false"
-                    resizable="false"
-                    appendToBody="true"
-                    height="200"
-                    width="400">
-                    <h:outputText value="Session Terminated, redirecting to initial page" />
-                    <h:outputLink title="If you are not readirected click here" value="index.xhtml"/>
-                </p:dialog>
+               
             </ui:define>
 
 
