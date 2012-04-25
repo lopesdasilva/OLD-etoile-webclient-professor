@@ -19,7 +19,7 @@
                         <p:commandLink value="News and Resources" disabled="true"/>
                     </h:panelGrid>
 
-                  <h:panelGrid columns="5" styleClass="userbar">
+                    <h:panelGrid columns="5" styleClass="userbar">
                         <p:commandLink value="Add News" ajax="false" action="addNews"/>
                         <h:outputLabel value="|"/>
                         <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" disabled="true" />
@@ -167,7 +167,28 @@
                 </h:form>
 
 
-
+                <p:idleMonitor timeout="60000">
+                    <p:ajax
+                        event="idle"
+                        listener="#{userManager.idleListener}"
+                        oncomplete="idleDialog.show()" />
+                    <p:ajax
+                        event="active"
+                        listener="#{userManager.activeListener}" />
+                </p:idleMonitor>
+                <p:dialog
+                    header="Session Exceeded Idle Limit"
+                    widgetVar="idleDialog"
+                    modal="true"
+                    closable="false"
+                    draggable="false"
+                    resizable="false"
+                    appendToBody="true"
+                    height="200"
+                    width="400">
+                    <h:outputText value="Session Terminated, redirecting to initial page" />
+                    <h:outputLink title="If you are not readirected click here" value="index.xhtml"/>
+                </p:dialog>
             </ui:define>
 
 

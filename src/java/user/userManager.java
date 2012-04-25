@@ -6,6 +6,7 @@ package user;
 
 import etoile.javaapi.question.Question;
 import etoile.javapi.professor.*;
+import java.io.IOException;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -16,8 +17,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import menu.MenuBean;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.menuitem.MenuItem;
@@ -30,6 +34,7 @@ import test.testManager;
 public class userManager implements Serializable {
 
     @ManagedProperty(value = "#{sha1}")
+    
     private sha1 sha1;
     private String username;
     private String password;
@@ -50,10 +55,9 @@ public class userManager implements Serializable {
     }
 
     public void setEditor(String editor) {
-        System.out.println("DEBUG : EDITOR text: "+editor);
+        System.out.println("DEBUG : EDITOR text: " + editor);
         this.editor = editor;
     }
-    
 
     public Professor getCurrent_user() {
         return current_user;
@@ -62,7 +66,6 @@ public class userManager implements Serializable {
     public void setCurrent_user(Professor current_user) {
         this.current_user = current_user;
     }
-    
 
     public String getRemoveModuleSelection() {
         return removeModuleSelection;
@@ -151,6 +154,20 @@ public class userManager implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void idleListener() {
+        System.out.println("idle Listener");
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        killHttpSession(ctx);
+        doRedirectToLoggedOutPage(ctx);
+    }
+
+    public void activeListener() {
+        System.out.println("active listener");
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        killHttpSession(ctx);
+        doRedirectToLoggedOutPage(ctx);
     }
 
     public String checkValidUser() {
@@ -246,13 +263,13 @@ public class userManager implements Serializable {
     }
 
     public int addModule() {
-        for (Module m:selectedDiscipline.modules){
-            if (m.name.equals(moduleName)){
-                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fail", "Module already exists"));
-            return 0;
+        for (Module m : selectedDiscipline.modules) {
+            if (m.name.equals(moduleName)) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fail", "Module already exists"));
+                return 0;
             }
         }
-        
+
         try {
             System.out.println("Adding Module :" + moduleName);
             manager.userService().addModule(moduleName, selectedDiscipline);
@@ -329,7 +346,7 @@ public class userManager implements Serializable {
         for (Module m : selectedDiscipline.getModules()) {
             if (m.name.equals(removeModuleSelection)) {
                 try {
-                    manager.userService().removeModule(selectedDiscipline,m.getId());
+                    manager.userService().removeModule(selectedDiscipline, m.getId());
                 } catch (SQLException ex) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fail", "Fail to remove module"));
                 }
@@ -337,29 +354,46 @@ public class userManager implements Serializable {
         }
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Module Removed"));
     }
-    
+
     public void removeTest(ActionEvent actionEvent) {
         System.out.println("Removing Selected Test");
-        
-           System.out.println("DEBUG: Check Results");
-            Object obj = actionEvent.getSource();
-            CommandButton cb = (CommandButton) obj;
 
-            for (Test t : selectedModule.getTests()) {
-                if (t.getId() == Integer.parseInt(cb.getLabel())) {
+        System.out.println("DEBUG: Check Results");
+        Object obj = actionEvent.getSource();
+        CommandButton cb = (CommandButton) obj;
+
+        for (Test t : selectedModule.getTests()) {
+            if (t.getId() == Integer.parseInt(cb.getLabel())) {
                 try {
                     this.selectedTest = t;
                     manager.userService().removeTest(selectedModule, t.getId());
                 } catch (SQLException ex) {
-                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fail", "Test not removed"));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fail", "Test not removed"));
                 }
-                
-                    }
-                }
+
+            }
+        }
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Test Removed"));
     }
-    public void saveEditor(){
-        System.out.println("DEBUG Edit Contents for Discipline: "+selectedDiscipline);
-        System.out.println("DEBUG Edit Contens new Content:"+editor);
+
+    public void saveEditor() {
+        System.out.println("DEBUG Edit Contents for Discipline: " + selectedDiscipline);
+        System.out.println("DEBUG Edit Contens new Content:" + editor);
+    }
+
+    private void doRedirectToLoggedOutPage(FacesContext ctx) {
+        try {
+            ctx.getExternalContext().redirect("index.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void killHttpSession(FacesContext ctx) {
+        HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
+        HttpSession session = request.getSession(false);
+        session.invalidate();
+
+
     }
 }

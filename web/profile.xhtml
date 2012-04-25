@@ -27,12 +27,12 @@
 
 
             <ui:define name="right">
-                <p:fieldset legend="Agenda">
+<!--                <p:fieldset legend="Agenda">
                     <p:panelGrid columns="2">  
                         <h:outputLabel id="date" value="21 February, 2012" />  
                         <h:outputLabel id="event" value="Starting of the ASSYST - Social Intelligence course" />                      
                     </p:panelGrid>  
-                </p:fieldset>
+                </p:fieldset>-->
             </ui:define>
 
             <ui:define name="content">
@@ -50,7 +50,28 @@
                     </p:accordionPanel>  
 
                 </p:fieldset>
-
+                <p:idleMonitor timeout="60000">
+                    <p:ajax
+                        event="idle"
+                        listener="#{userManager.idleListener}"
+                        oncomplete="idleDialog.show()" />
+                    <p:ajax
+                        event="active"
+                        listener="#{userManager.activeListener}" />
+                </p:idleMonitor>
+                <p:dialog
+                    header="Session Exceeded Idle Limit"
+                    widgetVar="idleDialog"
+                    modal="true"
+                    closable="false"
+                    draggable="false"
+                    resizable="false"
+                    appendToBody="true"
+                    height="200"
+                    width="400">
+                    <h:outputText value="Session Terminated, redirecting to initial page" />
+                    <h:outputLink title="If you are not readirected click here" value="index.xhtml"/>
+                </p:dialog>
             </ui:define>
 
         </ui:composition>

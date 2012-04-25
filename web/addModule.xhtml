@@ -20,7 +20,7 @@
                         <p:commandLink value="News and Resources" disabled="true"/>
                     </h:panelGrid>
 
-                     <h:panelGrid columns="5" styleClass="userbar">
+                    <h:panelGrid columns="5" styleClass="userbar">
                         <p:commandLink value="Add News" ajax="false" action="addNews"/>
                         <h:outputLabel value="|"/>
                         <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" disabled="true" />
@@ -32,34 +32,54 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:fieldset legend="Add Module to #{userManager.selectedDiscipline.name}">
-                        <center>
+                    <p:fieldset legend="Add Module to #{userManager.selectedDiscipline.name}" style="width: 800px">
 
-                            <p:panelGrid columns="2" >
-                                <h:outputText value="Module Name:"/>
-                                <p:inputText value="#{userManager.moduleName}"/>
-                                <h:outputText value="Module Description:"/>
-                                <p:inputTextarea title="" disabled="true" />
 
-                            </p:panelGrid>
-                            <p:panelGrid columns="2" >
+                        <p:panelGrid columns="2" >
+                            <h:outputText value="Module Name:"/>
+                            <p:inputText value="#{userManager.moduleName}"/>
+                            <h:outputText value="Module Description:"/>
+                        </p:panelGrid>
+                        <p:editor  disabled="true" width="800" height="200" />
 
-                                <p:commandButton value="Add Module" action="#{userManager.addModule}" update="modules" ajax="false"/>
-                                <p:commandButton value="Cancel" action="profile" ajax="false"/>
-                            </p:panelGrid>
-                        </center>
 
+                        <p:panelGrid columns="2" >
+
+                            <p:commandButton value="Add Module" action="#{userManager.addModule}" update="modules" ajax="false"/>
+                            <p:commandButton value="Cancel" action="profile" ajax="false"/>
+                        </p:panelGrid>
                     </p:fieldset>
                     <br/>
-                    <p:fieldset legend="Modules">
+                    <p:fieldset legend="Current Modules" style="width: 800px">
                         <p:selectOneRadio  id="modules" value="#{userManager.removeModuleSelection}"  layout="pageDirection">  
                             <f:selectItems value="#{userManager.selectedDiscipline.modules}" var="module" itemLabel="#{module.name}" itemValue="#{module.name}"/>  
                         </p:selectOneRadio>
-                         <p:commandButton value="Remove Selected"  action="#{userManager.removeModule}" update="modules" ajax="false"/>
+                        <p:commandButton value="Remove Selected"  action="#{userManager.removeModule}" update="modules" ajax="false"/>
                     </p:fieldset>
-                     <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" />
+                    <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" />
                 </h:form>
-                
+                <p:idleMonitor timeout="60000">
+                    <p:ajax
+                        event="idle"
+                        listener="#{userManager.idleListener}"
+                        oncomplete="idleDialog.show()" />
+                    <p:ajax
+                        event="active"
+                        listener="#{userManager.activeListener}" />
+                </p:idleMonitor>
+                <p:dialog
+                    header="Session Exceeded Idle Limit"
+                    widgetVar="idleDialog"
+                    modal="true"
+                    closable="false"
+                    draggable="false"
+                    resizable="false"
+                    appendToBody="true"
+                    height="200"
+                    width="400">
+                    <h:outputText value="Session Terminated, redirecting to initial page" />
+                    <h:outputLink title="If you are not readirected click here" value="index.xhtml"/>
+                </p:dialog>
             </ui:define>
 
 
