@@ -34,7 +34,6 @@ import test.testManager;
 public class userManager implements Serializable {
 
     @ManagedProperty(value = "#{sha1}")
-    
     private sha1 sha1;
     private String username;
     private String password;
@@ -49,6 +48,24 @@ public class userManager implements Serializable {
     private Module selectedModule;
     private LinkedList<Result> testResults;
     private String editor;
+    private String addNews;
+    private String addNewsTitle;
+
+    public String getAddNewsTitle() {
+        return addNewsTitle;
+    }
+
+    public void setAddNewsTitle(String addNewsTitle) {
+        this.addNewsTitle = addNewsTitle;
+    }
+
+    public String getAddNews() {
+        return addNews;
+    }
+
+    public void setAddNews(String addNews) {
+        this.addNews = addNews;
+    }
 
     public String getEditor() {
         return editor;
@@ -381,6 +398,22 @@ public class userManager implements Serializable {
         System.out.println("DEBUG Edit Contens new Content:" + editor);
     }
 
+    public void submitNews() {
+        try {
+            System.out.println("DEBUG Adding News Title:" + addNewsTitle);
+            System.out.println("DEBUG Adding News Content:" + addNews);
+
+            manager.userService().insertNews(addNewsTitle, addNews, "");
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "News Added"));
+        addNews = "";
+        addNewsTitle = "";
+    }
+
     private void doRedirectToLoggedOutPage(FacesContext ctx) {
         try {
             ctx.getExternalContext().redirect("index.xhtml");
@@ -393,7 +426,6 @@ public class userManager implements Serializable {
         HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
         HttpSession session = request.getSession(false);
         session.invalidate();
-
 
     }
 }

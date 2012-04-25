@@ -24,6 +24,7 @@
                         <h:outputLabel value="|"/>
                         <p:commandLink value="Logoff" ajax="false" action="#{userManager.logOff()}"/>
                     </h:panelGrid>
+                  <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" />
                 </h:form>
             </ui:define>
 
@@ -32,11 +33,12 @@
             <ui:define name="content">
                  <p:fieldset legend="Add News" style="width: 800px">
                     <h:form>
-
-                        <p:editor value="#{userManager.editor}" width="800"/>
-
-
-                        <p:commandButton value="Save" icon="ui-icon-disk" actionListener="#{userManager.saveEditor}"/>
+                         <p:panelGrid columns="2" style="width: 750px" >
+                             <h:outputText value="Title:"/>
+                             <p:inputText value="#{userManager.addNewsTitle}"/>
+                         </p:panelGrid>
+                        <p:editor value="#{userManager.addNews}" width="800"/>
+                        <p:commandButton value="Save" ajax="false" icon="ui-icon-disk" actionListener="#{userManager.submitNews}"/>
                     </h:form>
                 </p:fieldset>
                   <p:idleMonitor timeout="60000">
