@@ -85,7 +85,7 @@
                                     </p:menuButton> 
                                     <p:commandButton id="remQuestionButton" value="Remove Selected Question" action="#{userManager.testManager.removeQuestion}" update="questionsCheckbox"/>
 
-                                    <p:selectOneRadio style="height: 100px"  id="questionsCheckbox" value="#{userManager.testManager.questionsToAddSelection}" layout="pageDirection"> 
+                                    <p:selectOneRadio id="questionsCheckbox" value="#{userManager.testManager.questionsToAddSelection}" layout="pageDirection"> 
                                         <f:selectItems value="#{userManager.testManager.questionsToAdd}" var="question" itemLabel="#{question.text}" itemValue="#{question.text}"/>  
                                     </p:selectOneRadio>  
 
