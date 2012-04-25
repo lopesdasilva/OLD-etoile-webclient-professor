@@ -30,17 +30,18 @@
             </ui:define>
 
             <ui:define name="content">
+
                 <p:fieldset legend="Edit Contents" style="width: 800px">
                     <h:form>
+                        <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" />
+                        <p:editor value="#{userManager.editDescription}" width="800"/>
 
-                        <p:editor value="#{userManager.editor}" width="800"/>
 
-
-                        <p:commandButton value="Save" icon="ui-icon-disk" actionListener="#{userManager.saveEditor}"/>
+                        <p:commandButton value="Save" icon="ui-icon-disk" actionListener="#{userManager.saveDescription}"/>
                     </h:form>
                     <h:outputText value="Preview:"/>
                     <br/>
-                    <h:outputText value="#{userManager.editor}" escape="false" ></h:outputText>
+                    <h:outputText value="#{userManager.editDescription}" escape="false" ></h:outputText>
                 </p:fieldset>
                 <p:idleMonitor timeout="60000">
                     <p:ajax

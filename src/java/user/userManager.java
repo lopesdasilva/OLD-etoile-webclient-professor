@@ -1,6 +1,6 @@
 /*
  * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * and open the template in the editDescription.
  */
 package user;
 
@@ -47,7 +47,7 @@ public class userManager implements Serializable {
     public Test selectedTest;
     private Module selectedModule;
     private LinkedList<Result> testResults;
-    private String editor;
+    private String editDescription;
     private String addNews;
     private String addNewsTitle;
 
@@ -67,14 +67,14 @@ public class userManager implements Serializable {
         this.addNews = addNews;
     }
 
-    public String getEditor() {
-        return editor;
+    public String getEditDescription() {
+        return editDescription;
     }
 
-    public void setEditor(String editor) {
-        System.out.println("DEBUG : EDITOR text: " + editor);
-        this.editor = editor;
+    public void setEditDescription(String editDescription) {
+        this.editDescription = editDescription;
     }
+
 
     public Professor getCurrent_user() {
         return current_user;
@@ -393,9 +393,17 @@ public class userManager implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Test Removed"));
     }
 
-    public void saveEditor() {
-        System.out.println("DEBUG Edit Contents for Discipline: " + selectedDiscipline);
-        System.out.println("DEBUG Edit Contens new Content:" + editor);
+    public void saveDescription() {
+        try {
+            System.out.println("DEBUG Edit Contents for Discipline: " + selectedDiscipline.name);
+            System.out.println("DEBUG Edit Contens new Content:" + editDescription);
+            
+            manager.userService().changeDisciplineDescription(selectedDiscipline, editDescription);
+        } catch (SQLException ex) {
+            Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Description Changed"));
+        
     }
 
     public void submitNews() {
