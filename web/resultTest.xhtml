@@ -11,9 +11,10 @@
         <ui:composition template="./resources/templates/disciplineTemplate.xhtml">
 
             <ui:define name="toptop">
+
                 <h:form>
                     <h:panelGrid columns="5" styleClass="breadcrums" >
-                       <p:commandLink value="Home" ajax="false" action="profile" />
+                        <p:commandLink value="Home" ajax="false" action="profile" />
                         <h:outputLabel value=">"/>
                         <p:commandLink value="#{userManager.selectedDiscipline.name}" action="#{userManager.redirectAnnouncements()}" disabled="true" ajax="false"/>
                         <h:outputLabel value=">"/>
@@ -31,44 +32,44 @@
             </ui:define>
 
             <ui:define name="content">
-    <h:form>
-        <p:dataTable id="questions" var="q" value="#{userManager.testResults}">
-                        <p:column id="user">
-                            <f:facet name="header">
-                                Username
-                            </f:facet>
-                            <h:outputText value="#{q.username}" />
-                        </p:column>
+                <p:fieldset legend="Students Answers" style="width: 800px">
+                    <h:form>
+                        <p:dataTable id="questions" var="q" value="#{userManager.testResults}">
+                            <p:column id="user">
+                                <f:facet name="header">
+                                    Username
+                                </f:facet>
+                                <h:outputText value="#{q.username}" />
+                            </p:column>
 
-                        <p:column id="questionsHeader"> 
-                            <f:facet name="header">  
-                                Question  
-                            </f:facet>  
-                            <h:outputText value="#{q.question}" />  
-                        </p:column>  
-                        <p:column id="answerHeader"> 
-                            <f:facet name="header">  
-                                Answer
-                            </f:facet>
+                            <p:column id="questionsHeader"> 
+                                <f:facet name="header">  
+                                    Question  
+                                </f:facet>  
+                                <h:outputText value="#{q.question}" />  
+                            </p:column>  
+                            <p:column id="answerHeader"> 
+                                <f:facet name="header">  
+                                    Answer
+                                </f:facet>
 
-                            <h:outputText value="#{q.answer}"/>  
-                            
-                        </p:column>
+                                <h:outputText value="#{q.answer}"/>  
 
-                    </p:dataTable>
-                    <br></br>
-                    <h:commandLink value="#{userManager.username}_#{userManager.selectedTest.name}()">
-                        <p:graphicImage value="resources/images/pdf.png" />  
+                            </p:column>
 
-                        <p:dataExporter type="pdf" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}()"/>  
+                        </p:dataTable>
+                        <br></br>
+                        <h:commandLink value="Export to PDF">
+                            <p:graphicImage value="resources/images/pdf.png" />
+                            <p:dataExporter type="pdf" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}()"/>  
 
-                    </h:commandLink>
-<!--                    <h:commandLink>  
-                        <p:graphicImage value="resources/images/excel.png" />  
-                        <p:dataExporter type="xls" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}()" pageOnly="true"/> 
-                    </h:commandLink>  -->
-                </h:form>
-              
+                        </h:commandLink>
+                        <!--                    <h:commandLink>  
+                                                <p:graphicImage value="resources/images/excel.png" />  
+                                                <p:dataExporter type="xls" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}()" pageOnly="true"/> 
+                                            </h:commandLink>  -->
+                    </h:form>
+                </p:fieldset>
             </ui:define>
 
         </ui:composition>

@@ -38,7 +38,7 @@
                                     <center>
                                         <h:outputText value="Test Name:"/>
                                         <p:inputText value="#{userManager.testManager.testName}" required="true" requiredMessage="Please Insert a name"> 
-                                            <p:ajax event="keyup"/>
+                                            <p:ajax event="blur"/>
                                         </p:inputText>
                                     </center>
                                     <p:panelGrid columns="3" style="width: 750px" >
@@ -168,7 +168,7 @@
 
 
 
-
+            </ui:define>
         </ui:composition>
 
     </body>
