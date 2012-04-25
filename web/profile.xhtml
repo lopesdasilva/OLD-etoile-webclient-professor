@@ -12,9 +12,12 @@
 
             <ui:define name="toptop">
                 <h:form>
-                    <p:commandLink value="Profile"  styleClass="breadcrums" />
-
-                    <h:panelGrid columns="3" styleClass="userbar">
+                    <h:panelGrid columns="1" styleClass="breadcrums" >
+                        <p:commandLink value="Profile" ajax="false" action="profile" />
+                    </h:panelGrid>
+                    <h:panelGrid columns="5" styleClass="userbar">
+                        <p:commandLink value="Add News" ajax="false" action="addNews"/>
+                        <h:outputLabel value="|"/>
                         <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" disabled="true" />
                         <h:outputLabel value="|"/>
                         <p:commandLink value="Logoff" ajax="false" action="#{userManager.logOff()}"/>
@@ -33,8 +36,8 @@
             </ui:define>
 
             <ui:define name="content">
-              
-                        
+
+
                 <p:fieldset legend="News">
                     Please check the news concerning your courses.
                     <p:accordionPanel value ="#{userManager.current_user.news}" var="news_var" style="width:800px;height:300px;">  

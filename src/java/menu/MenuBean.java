@@ -52,12 +52,12 @@ public class MenuBean implements Serializable {
             item.setActionExpression(createAction_old("#{userManager.redirectAddTest}", String.class));
             submenu.getChildren().add(item);
 
-//            MenuItem item2 = new MenuItem();
-//            item2.setValue("Edit Contents");
-//            item2.setAjax(false);
-//            item2.setActionListener(createActionListener("#{userManager.redirectEditContents}"));
-//            item2.setActionExpression(createAction_old("#{userManager.redirectEditContents}", String.class));
-//            submenu.getChildren().add(item2);
+            MenuItem item2 = new MenuItem();
+            item2.setValue("Edit Contents");
+            item2.setAjax(false);
+            item2.setActionListener(createActionListener("#{userManager.redirectEditContents}"));
+            item2.setActionExpression(createAction_old("#{userManager.redirectEditContents}", String.class));
+            submenu.getChildren().add(item2);
 //            MenuItem item3 = new MenuItem();
 //            item3.setValue("Discussion Forum");
 //            item3.setAjax(false);

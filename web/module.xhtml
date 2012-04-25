@@ -13,17 +13,19 @@
             <ui:define name="toptop">
                 <h:form>
                     <h:panelGrid columns="5" styleClass="breadcrums" >
-                        <p:commandLink value="Profile" ajax="false" action="#{userManager.redirectProfile()}" />
+                        <p:commandLink value="Profile" ajax="false" action="profile" />
                         <h:outputLabel value=">"/>
                         <p:commandLink value="#{userManager.selectedDiscipline.name}" action="#{userManager.redirectAnnouncements()}" disabled="true" ajax="false"/>
                         <h:outputLabel value=">"/>
                         <p:commandLink value="#{userManager.selectedModule.name}" disabled="true"/>
                     </h:panelGrid>
 
-                    <h:panelGrid columns="3" styleClass="userbar">
-                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}"  disabled="true"/>
+                    <h:panelGrid columns="5" styleClass="userbar">
+                        <p:commandLink value="Add News" ajax="false" action="addNews"/>
                         <h:outputLabel value="|"/>
-                        <p:commandLink value="Logoff" ajax="false" action="#{userManager.logOff()}" />
+                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" disabled="true" />
+                        <h:outputLabel value="|"/>
+                        <p:commandLink value="Logoff" ajax="false" action="#{userManager.logOff()}"/>
                     </h:panelGrid>
                 </h:form>
             </ui:define>
@@ -37,13 +39,13 @@
 
 
                     <p:fieldset id="testlist" legend="#{userManager.selectedModule.name}" >
-                        <p:accordionPanel id="tests" value="#{userManager.selectedModule.tests}" var="test" style="width:500px;height:300px;" >
-                            <p:tab title="#{test.name}" style="max-width: 300px" >  
+                        <p:accordionPanel id="tests" value="#{userManager.selectedModule.tests}" var="test" style="width:800px" >
+                            <p:tab title="#{test.name}" >  
                                 <h:panelGrid id="pgrid" columns="2" cellpadding="10">
                                     <h:outputText value="Name:" style="font-weight: bold"/>
                                     <h:outputText value="#{test.name}"/>
                                     <h:outputText value="Description:" style="font-weight: bold"/>
-                                    <h:outputText value="#{test.description}"/>
+                                    <h:outputText value="#{test.description}" escape="false"/>
                                     <h:outputText value="Begin date:" style="font-weight: bold"/>
                                     <h:outputText value="#{test.beginDate.toString()}"/>
                                     <h:outputText value="End date:" style="font-weight: bold"/>

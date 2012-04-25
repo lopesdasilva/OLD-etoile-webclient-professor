@@ -43,6 +43,17 @@ public class userManager implements Serializable {
     public Test selectedTest;
     private Module selectedModule;
     private LinkedList<Result> testResults;
+    private String editor;
+
+    public String getEditor() {
+        return editor;
+    }
+
+    public void setEditor(String editor) {
+        System.out.println("DEBUG : EDITOR text: "+editor);
+        this.editor = editor;
+    }
+    
 
     public Professor getCurrent_user() {
         return current_user;
@@ -347,5 +358,8 @@ public class userManager implements Serializable {
                 }
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Test Removed"));
     }
-    
+    public void saveEditor(){
+        System.out.println("DEBUG Edit Contents for Discipline: "+selectedDiscipline);
+        System.out.println("DEBUG Edit Contens new Content:"+editor);
+    }
 }
