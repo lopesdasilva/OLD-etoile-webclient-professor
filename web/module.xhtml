@@ -32,12 +32,16 @@
 
             <ui:define name="content">
 
+                   <p:dialog modal="true" widgetVar="statusDialog" header="Please wait..."   
+                          resizable="false" draggable="false" closable="false" showHeader="false">  
+                    <center>
+                        <h:outputText value="Loading, please wait..."/>
+                        <br/>
+                        <p:graphicImage value="/resources/images/ajaxloadingbar.gif" />
+                    </center>
+                </p:dialog> 
+                
                 <h:form>
-
-
-
-
-
                     <p:fieldset id="testlist" legend="#{userManager.selectedModule.name}" >
                         <p:accordionPanel id="tests" value="#{userManager.selectedModule.tests}" var="test" style="width:800px" >
                             <p:tab title="#{test.name}" >  
@@ -56,7 +60,7 @@
 
                                 <p:column>
 
-                                     <p:commandButton value="Check Results"  label="#{test.id}" actionListener="#{userManager.checkResults}" action="#{userManager.redirectResults}" ajax="false"/>
+                                     <p:commandButton value="Check Results"  label="#{test.id}" onclick="statusDialog.show();" actionListener="#{userManager.checkResults}" action="#{userManager.redirectResults}" ajax="false"/>
                                      <p:commandButton value="Remove Test" label="#{test.id}" actionListener="#{userManager.removeTest}" update="tests" ajax="false"/>
                                 
                                 </p:column>

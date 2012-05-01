@@ -58,16 +58,22 @@
                             </p:column>
 
                         </p:dataTable>
-                        <br></br>
-                        <h:commandLink value="Export to PDF">
-                            <p:graphicImage value="resources/images/pdf.png" />
-                            <p:dataExporter type="pdf" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}()"/>  
+                        <br/>
+                        <h:commandLink value="Export as PDF">
+                            <p:graphicImage value="#{resource['images/pdf.png']}" />
+                            <p:dataExporter type="pdf" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}"/>  
 
                         </h:commandLink>
-                        <!--                    <h:commandLink>  
-                                                <p:graphicImage value="resources/images/excel.png" />  
-                                                <p:dataExporter type="xls" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}()" pageOnly="true"/> 
-                                            </h:commandLink>  -->
+                        <br/>
+                        <h:commandLink value="Export as CSV" >
+                            <p:graphicImage value="#{resource['images/csv.png']}" />
+                            <p:dataExporter type="csv" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}"/>
+                        </h:commandLink>
+                        <br/>
+                        <h:commandLink value="Export as XLS">  
+                            <p:graphicImage value="#{resource['images/excel.png']}" />  
+                            <p:dataExporter type="xls" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}"/> 
+                        </h:commandLink>
                     </h:form>
                 </p:fieldset>
             </ui:define>

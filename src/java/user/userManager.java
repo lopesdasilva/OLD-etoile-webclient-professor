@@ -343,7 +343,7 @@ public class userManager implements Serializable {
                     }
                 }
             }
-            testResults = manager.userService().getOpenQuestionTestResults(selectedTest.getId());
+            testResults = manager.userService().getResults(selectedTest.getId());
             System.out.println("DEBUG: SELECTED TEST: " + selectedTest.name + " ID: " + selectedTest.getId());
             //        System.out.println("DEBUG: SELECTED TEST AUTHOR: " + selectedTest.author);
         } catch (SQLException ex) {
