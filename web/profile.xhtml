@@ -27,29 +27,33 @@
 
 
             <ui:define name="right">
-<!--                <p:fieldset legend="Agenda">
-                    <p:panelGrid columns="2">  
-                        <h:outputLabel id="date" value="21 February, 2012" />  
-                        <h:outputLabel id="event" value="Starting of the ASSYST - Social Intelligence course" />                      
-                    </p:panelGrid>  
-                </p:fieldset>-->
+                <!--                <p:fieldset legend="Agenda">
+                                    <p:panelGrid columns="2">  
+                                        <h:outputLabel id="date" value="21 February, 2012" />  
+                                        <h:outputLabel id="event" value="Starting of the ASSYST - Social Intelligence course" />                      
+                                    </p:panelGrid>  
+                                </p:fieldset>-->
             </ui:define>
 
             <ui:define name="content">
 
+                <h:form>
+                    <p:fieldset legend="News">
+                        Please check the news concerning your courses.
+                        <p:accordionPanel  id="news" value ="#{userManager.current_user.news}" var="news_var" style="width:800px">  
+                            <p:tab title="#{news_var.title}">  
+                                <h:panelGrid columns="1" cellpadding="10">
+                                    <p:commandButton value="Delete" actionListener="#{userManager.removeNews}" label="#{news_var.id}" ajax="false" update="news"/>
+                                    
+                                    <h:outputText value="#{news_var.text}" escape="false"/> 
 
-                <p:fieldset legend="News">
-                    Please check the news concerning your courses.
-                    <p:accordionPanel value ="#{userManager.current_user.news}" var="news_var" style="width:800px">  
-                        <p:tab title="#{news_var.title}">  
-                            <h:panelGrid columns="1" cellpadding="10">
-                                <h:outputText value="#{news_var.text}" escape="false"/>  
-                            </h:panelGrid>  
-                        </p:tab> 
-                    </p:accordionPanel>  
+                                </h:panelGrid>  
+                            </p:tab> 
+                        </p:accordionPanel>  
 
-                </p:fieldset>
-                
+                    </p:fieldset>
+                     <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" />
+                </h:form>
             </ui:define>
 
         </ui:composition>

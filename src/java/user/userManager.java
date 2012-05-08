@@ -375,7 +375,6 @@ public class userManager implements Serializable {
     public void removeTest(ActionEvent actionEvent) {
         System.out.println("Removing Selected Test");
 
-        System.out.println("DEBUG: Check Results");
         Object obj = actionEvent.getSource();
         CommandButton cb = (CommandButton) obj;
 
@@ -403,6 +402,31 @@ public class userManager implements Serializable {
             Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
         }
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Description Changed"));
+        
+    }
+    
+    
+    public void removeNews(ActionEvent actionEvent) {
+        try {
+            System.out.println("Removing Selected News");
+            Object obj = actionEvent.getSource();
+            CommandButton cb = (CommandButton) obj;
+            
+            int newsIdToRemove=Integer.parseInt(cb.getLabel());
+            
+            System.out.println("DEBUG: ID to remove: "+newsIdToRemove+"");
+            
+            
+            manager.userService().removeNews(newsIdToRemove);
+            
+            System.out.println("DEBUG: AFTER ACCESSING THE API TO DELETE NEWS.");
+        } catch (SQLException ex) {
+            Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fail", "Error removing news"));
+        
+        }
+        
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "News removed"));
         
     }
 

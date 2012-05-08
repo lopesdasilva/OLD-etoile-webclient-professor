@@ -48,6 +48,10 @@
                                         <p:inputText value="#{userManager.testManager.testName}" required="true" requiredMessage="Please Insert a name"> 
                                             <p:ajax event="blur"/>
                                         </p:inputText>
+                                        <p:spacer width="20"/>
+                                        <h:outputText value="Show URL Tab:"/>
+                                        <p:selectBooleanCheckbox value="#{userManager.testManager.showURLs}" onLabel="Yes" offLabel="No" />  
+                                        
                                     </center>
                                     <p:panelGrid columns="3" style="width: 750px" >
                                         <p:column id="ModuleSelection">

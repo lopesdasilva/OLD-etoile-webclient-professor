@@ -39,6 +39,27 @@ public class testManager {
     private String newMultipleChoiceQuestionText;
     private LinkedList<String> multipleChoicehypothesis = new LinkedList<String>();
     private String url;
+    private int showURLS_aux = 0;
+    boolean showURLs;
+
+    public boolean isShowURLs() {
+        return showURLs;
+    }
+
+    public void setShowURLs(boolean showURLs) {
+        
+        //bug do primefaces? quando faco submit do teste a variavel fica sempre false.
+        if (showURLs) {
+            showURLS_aux = 1;
+        }
+        this.showURLs = showURLs;
+    }
+
+    public void addMessage() {
+        String summary = showURLs ? "Checked" : "Unchecked";
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
+    }
 
     public String getUrl() {
         return url;
@@ -47,7 +68,7 @@ public class testManager {
     public void setUrl(String url) {
         this.url = url;
     }
-    
+
     public String getNewMultipleChoiceHypothesisText() {
         return newMultipleChoiceHypothesisText;
     }
@@ -171,7 +192,7 @@ public class testManager {
         questionsToAdd.add(new OpenQuestion(0, newQuestionText));
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Question Added"));
 
-        newQuestionText="";
+        newQuestionText = "";
         return "success";
     }
 
@@ -179,10 +200,10 @@ public class testManager {
         System.out.println("Adding One Choice Question");
         questionsToAdd.add(new OneChoiceQuestion(newOneChoiceQuestionText, 0, oneChoicehypothesis, ""));
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Question Added"));
-        
-    newOneChoiceHypothesisText="";
-    newOneChoiceQuestionText="";
-    oneChoicehypothesis = new LinkedList<String>();
+
+        newOneChoiceHypothesisText = "";
+        newOneChoiceQuestionText = "";
+        oneChoicehypothesis = new LinkedList<String>();
         return "success";
     }
 
@@ -190,11 +211,11 @@ public class testManager {
         System.out.println("Adding Multiple Choice Question");
         questionsToAdd.add(new MultipleChoiceQuestion(newMultipleChoiceQuestionText, 0, multipleChoicehypothesis, multipleChoicehypothesis));
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Question Added"));
-   
-    newMultipleChoiceHypothesisText="";
-    newMultipleChoiceQuestionText="";
-    multipleChoicehypothesis = new LinkedList<String>();
-        
+
+        newMultipleChoiceHypothesisText = "";
+        newMultipleChoiceQuestionText = "";
+        multipleChoicehypothesis = new LinkedList<String>();
+
         return "success";
     }
 
@@ -207,13 +228,13 @@ public class testManager {
         }
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Question Removed"));
     }
-    
-       
-    
+
     public String submitTest() {
         try {
             System.out.println("Submiting test");
-            int testid = manager.userService().addTest(testName, "Teacher", new java.sql.Date(startDate.getTime()), new java.sql.Date(finishDate.getTime()), testDescription, selectedModule,url);
+            System.out.println("I:" + showURLS_aux);
+            System.out.println("showURLS: " + showURLs);
+            int testid = manager.userService().addTest(testName, "Teacher", new java.sql.Date(startDate.getTime()), new java.sql.Date(finishDate.getTime()), testDescription, selectedModule, url, showURLS_aux == 1);
             int questionNumber = 0;
             for (Question q : questionsToAdd) {
 
@@ -229,13 +250,13 @@ public class testManager {
                 }
             }
             clearTest();
-            
+
 
         } catch (SQLException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Fail to add Test"));
             Logger.getLogger(testManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Test Added"));
         return "addTest";
     }
@@ -252,19 +273,21 @@ public class testManager {
     }
 
     private void clearTest() {
-    questionsToAdd = new LinkedList<Question>();
-    questionsToAddSelection="";
-    testName="";
-    testDescription="";
-    startDate=null;
-    finishDate=null;
-    newQuestionText="";
-    newOneChoiceHypothesisText="";
-    newOneChoiceQuestionText="";
-    oneChoicehypothesis = new LinkedList<String>();
-    newMultipleChoiceHypothesisText="";
-    newMultipleChoiceQuestionText="";
-    multipleChoicehypothesis = new LinkedList<String>();
-    url="";
+        questionsToAdd = new LinkedList<Question>();
+        questionsToAddSelection = "";
+        testName = "";
+        testDescription = "";
+        startDate = null;
+        finishDate = null;
+        newQuestionText = "";
+        newOneChoiceHypothesisText = "";
+        newOneChoiceQuestionText = "";
+        oneChoicehypothesis = new LinkedList<String>();
+        newMultipleChoiceHypothesisText = "";
+        newMultipleChoiceQuestionText = "";
+        multipleChoicehypothesis = new LinkedList<String>();
+        url = "";
+        showURLS_aux=0;
+
     }
 }

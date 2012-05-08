@@ -28,7 +28,9 @@
                 </library>
                 <library dirs="200">
                     <file>${libs.Apache POI.classpath}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${libs.Apache POI 3.8.classpath}</file>
                 </library>
                 <library dirs="200">
                     <file>${libs.iText.classpath}</file>
