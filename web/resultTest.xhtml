@@ -70,7 +70,7 @@
                             <p:dataExporter type="csv" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}"/>
                         </h:commandLink>
                         <br/>
-                         <h:commandLink value="Export as TXT" >
+                        <h:commandLink value="Export as TXT" actionListener="#{userManager.redirectResults}" >
                             <p:graphicImage value="#{resource['images/txt.png']}" />
                             <p:fileDownload value="#{userManager.txtFile}" />
                         </h:commandLink>
