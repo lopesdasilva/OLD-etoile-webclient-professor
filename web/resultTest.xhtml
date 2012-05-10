@@ -69,6 +69,11 @@
                             <p:graphicImage value="#{resource['images/csv.png']}" />
                             <p:dataExporter type="csv" target="questions" fileName="#{userManager.username}_#{userManager.selectedTest.name}"/>
                         </h:commandLink>
+                        <br/>
+                         <h:commandLink value="Export as TXT" >
+                            <p:graphicImage value="#{resource['images/txt.png']}" />
+                            <p:fileDownload value="#{userManager.txtFile}" />
+                        </h:commandLink>
                     </h:form>
                 </p:fieldset>
             </ui:define>

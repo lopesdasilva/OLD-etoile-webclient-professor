@@ -6,6 +6,7 @@ package user;
 
 import etoile.javaapi.question.Question;
 import etoile.javapi.professor.*;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
@@ -17,8 +18,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,6 +27,12 @@ import org.primefaces.component.menuitem.MenuItem;
 import org.primefaces.component.submenu.Submenu;
 import sha1.sha1;
 import test.testManager;
+
+import java.io.InputStream;  
+import javax.faces.context.FacesContext;    
+import org.primefaces.model.DefaultStreamedContent;  
+import org.primefaces.model.StreamedContent;
+
 
 @ManagedBean(name = "userManager")
 @SessionScoped
@@ -74,7 +79,6 @@ public class userManager implements Serializable {
     public void setEditDescription(String editDescription) {
         this.editDescription = editDescription;
     }
-
 
     public Professor getCurrent_user() {
         return current_user;
@@ -353,10 +357,7 @@ public class userManager implements Serializable {
 
     }
 
-    public String redirectResults() {
-        System.out.println("DEBUG: Redirecting to results");
-        return "results";
-    }
+   
 
     public void removeModule() {
         System.out.println("Removing Selected Module");
@@ -395,39 +396,38 @@ public class userManager implements Serializable {
     public void saveDescription() {
         try {
             System.out.println("DEBUG Edit Contents for Discipline: " + selectedDiscipline.name);
-            System.out.println("DEBUG Edit Contens new Content:" +  selectedDiscipline.description);
-            
+            System.out.println("DEBUG Edit Contens new Content:" + selectedDiscipline.description);
+
             manager.userService().changeDisciplineDescription(selectedDiscipline, selectedDiscipline.description);
         } catch (SQLException ex) {
             Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Description Changed"));
-        
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Description Changed"));
+
     }
-    
-    
+
     public void removeNews(ActionEvent actionEvent) {
         try {
             System.out.println("Removing Selected News");
             Object obj = actionEvent.getSource();
             CommandButton cb = (CommandButton) obj;
-            
-            int newsIdToRemove=Integer.parseInt(cb.getLabel());
-            
-            System.out.println("DEBUG: ID to remove: "+newsIdToRemove+"");
-            
-            
+
+            int newsIdToRemove = Integer.parseInt(cb.getLabel());
+
+            System.out.println("DEBUG: ID to remove: " + newsIdToRemove + "");
+
+
             manager.userService().removeNews(newsIdToRemove);
-            
+
             System.out.println("DEBUG: AFTER ACCESSING THE API TO DELETE NEWS.");
         } catch (SQLException ex) {
             Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fail", "Error removing news"));
-        
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fail", "Error removing news"));
+
         }
-        
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "News removed"));
-        
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "News removed"));
+
     }
 
     public void submitNews() {
@@ -459,5 +459,26 @@ public class userManager implements Serializable {
         HttpSession session = request.getSession(false);
         session.invalidate();
 
+    }
+    private StreamedContent txtFile;
+
+     public String redirectResults() {
+        try {
+            System.out.println("DEBUG: Redirecting to results");
+            
+            String output=manager.userService().getResultsTXT(selectedDiscipline.getId(), selectedModule.getId(), selectedTest.getId());
+            
+            
+            InputStream stream = new ByteArrayInputStream(output.getBytes());
+            txtFile = new DefaultStreamedContent(stream, "application/txt", "Results_"+selectedTest.name+".txt");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "results";
+    }
+
+    public StreamedContent getTxtFile() {
+        return txtFile;
     }
 }
