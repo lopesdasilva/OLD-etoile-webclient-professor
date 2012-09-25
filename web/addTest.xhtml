@@ -20,9 +20,9 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="5" styleClass="userbar">
-                        <p:commandLink value="Add News" ajax="false" action="addNews"/>
+                         <p:commandLink value="Add News" ajax="false" action="addNews"/>
                         <h:outputLabel value="|"/>
-                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" disabled="true" />
+                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" disabled="false" />
                         <h:outputLabel value="|"/>
                         <p:commandLink value="Logoff" ajax="false" action="#{userManager.logOff()}"/>
                     </h:panelGrid>

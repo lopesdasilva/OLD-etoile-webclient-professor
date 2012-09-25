@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <body>
+
+        <ui:composition template="./resources/templates/profileTemplate.xhtml">
+
+            <ui:define name="toptop">
+                <h:form>
+                    <h:panelGrid columns="3" styleClass="breadcrums" >
+                        <p:commandLink value="Home" ajax="false" action="profile" />
+                        <h:outputLabel value=">"/>
+                        <p:commandLink value="Account" disabled="true"  ajax="false" action="#{userManager.redirectAccount()}"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="5" styleClass="userbar">
+                        <p:commandLink value="Add News" ajax="false" action="addNews"/>
+                        <h:outputLabel value="|"/>
+                        <p:commandLink value="Account" ajax="false" action="#{userManager.redirectAccount()}" disabled="false" />
+                        <h:outputLabel value="|"/>
+                        <p:commandLink value="Logoff" ajax="false" action="#{userManager.logOff()}"/>
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+
+
+            <ui:define name="content">
+                 <p:dialog modal="true" widgetVar="statusDialog" header="Please wait..."   
+                          resizable="false" draggable="false" closable="false" showHeader="false">  
+                    <center>
+                        <h:outputText value="Loading, please wait..."/>
+                        <br/>
+                        <p:graphicImage value="/resources/images/ajaxloadingbar.gif" />
+                    </center>
+                </p:dialog> 
+                <h:form>
+                    
+                    <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" />
+
+                    <p:fieldset legend="Account">
+                        <p:fieldset legend="Change User Informations" >
+                            <p:panelGrid columns="2" style="border-color: inactiveborder">
+                                <p:panelGrid columns="2" style="border-color: inactiveborder">
+                                    <h:outputText value="First Name: "/>
+                                    <p:inputText value="#{userManager.current_user.firstname}" disabled="true"/>
+                                    <h:outputText value="Last Name: "/>
+                                    <p:inputText value="#{userManager.current_user.lastname}" disabled="true"/>
+                                    <h:outputText value="Email: "/>
+                                    <p:inputText value="#{userManager.current_user.email}" disabled="true"/>
+                                </p:panelGrid>
+<!--                                <p:photoCam ></p:photoCam>-->
+                            </p:panelGrid>
+                            <p:commandButton value="Save" disabled="true" onclick="statusDialog.show();" oncomplete="statusDialog.hide();"/>
+                        </p:fieldset>
+                        <br></br>
+                        <p:fieldset legend="Change Password">
+                            
+                            <p:panelGrid id="password" columns="2" style="border-color: inactiveborder">
+     
+                                <h:outputText value="New Password: "/>
+                                <p:password id="pwd1" value="#{userManager.newPassword}" match="pwd2" label="New password" required="true"/>
+                                <h:outputText value="Retype Password: "/>
+                                <p:password id="pwd2" value="#{userManager.newPassswordRetype}" label="Retype password" required="true"/>
+                                </p:panelGrid>
+                            <p:commandButton value="Save new password" update="password" onclick="statusDialog.show();" actionListener="#{userManager.changePassword}" oncomplete="statusDialog.hide();"/>
+                        </p:fieldset>
+                        
+                    </p:fieldset>  
+                </h:form>
+            </ui:define>
+
+            <ui:define name="right">
+<!--                <p:fieldset legend="Agenda">
+
+                </p:fieldset>-->
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

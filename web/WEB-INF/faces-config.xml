@@ -71,7 +71,42 @@
         <navigation-case>
             <from-outcome>addNews</from-outcome>
             <to-view-id>/addNews.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>account</from-outcome>
+            <to-view-id>/account.xhtml</to-view-id>           
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/account.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>logoff</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>           
         </navigation-case>  
+        <navigation-case>
+            <from-outcome>addModule</from-outcome>
+            <to-view-id>/addModule.xhtml</to-view-id>
+        </navigation-case> 
+        <navigation-case>
+            <from-outcome>addTest</from-outcome>
+            <to-view-id>/addTest.xhtml</to-view-id>
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>module</from-outcome>
+            <to-view-id>/module.xhtml</to-view-id>
+        </navigation-case> 
+        <navigation-case>
+            <from-outcome>editContents</from-outcome>
+            <to-view-id>/editcontents.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addNews</from-outcome>
+            <to-view-id>/addNews.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>account</from-outcome>
+            <to-view-id>/account.xhtml</to-view-id>           
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/addTest.xhtml</from-view-id>

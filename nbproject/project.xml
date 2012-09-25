@@ -31,7 +31,14 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${libs.Primefaces_3.0.1.classpath}</file>
+                    <file>${libs.Primefaces 3.3.1.classpath}</file>
+                </library>
+                <library dirs="200">
+                    <file>${libs.Primefaces3.1.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${libs.Mail.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
