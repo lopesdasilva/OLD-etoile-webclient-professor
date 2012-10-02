@@ -196,20 +196,6 @@ public class userManager implements Serializable {
         this.username = username;
     }
 
-    public void idleListener() {
-        System.out.println("idle Listener");
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        killHttpSession(ctx);
-        doRedirectToLoggedOutPage(ctx);
-    }
-
-    public void activeListener() {
-        System.out.println("active listener");
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        killHttpSession(ctx);
-        doRedirectToLoggedOutPage(ctx);
-    }
-
     public String checkValidUser() {
         System.out.println("DEBUG: USER: " + username + " TRYING TO LOGIN");
         try {
@@ -465,20 +451,7 @@ public class userManager implements Serializable {
         addNewsTitle = "";
     }
 
-    private void doRedirectToLoggedOutPage(FacesContext ctx) {
-        try {
-            ctx.getExternalContext().redirect("index.xhtml");
-        } catch (IOException ex) {
-            Logger.getLogger(userManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void killHttpSession(FacesContext ctx) {
-        HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
-        HttpSession session = request.getSession(false);
-        session.invalidate();
-
-    }
+   
     private StreamedContent txtFile;
 
      public String redirectResults() {
